@@ -3,9 +3,9 @@
 1094	1302	6805371425427508	uml_creator.exe	16641dec9632a4c9
 6	1450	6805408145270250	vendor/glfw/src/CMakeFiles/glfw.dir/context.c.obj	8429271c24f6cc88
 2904	4158	6805408172327889	vendor/glfw/src/CMakeFiles/glfw.dir/null_window.c.obj	6551163a87043065
-2	414	6805417307409425	build.ninja	4952f7ab240c3807
+3	516	6805438454130391	build.ninja	4952f7ab240c3807
 6520	7877	6805408209578251	vendor/glfw/src/CMakeFiles/glfw.dir/win32_monitor.c.obj	5e2e12919948c1d0
-5	990	6805407415622350	CMakeFiles/uml-creator.dir/main.cpp.obj	b896e492aadd4d5f
+5	770	6805417316456306	CMakeFiles/uml-creator.dir/main.cpp.obj	b896e492aadd4d5f
 14	1394	6805408144631960	vendor/glfw/src/CMakeFiles/glfw.dir/platform.c.obj	8905a465ec8b3059
 2863	4117	6805408171954554	vendor/glfw/src/CMakeFiles/glfw.dir/null_init.c.obj	b4c87f94ced0a833
 4	388	6805404036862562	vendor/glad/CMakeFiles/glad.dir/src/glad.c.obj	bfcc8a7687062e5b
@@ -27,7 +27,12 @@
 7878	9153	6805408222174575	vendor/glfw/src/CMakeFiles/glfw.dir/win32_init.c.obj	19b06c1d2f83534f
 8249	9425	6805408225072132	vendor/glfw/src/CMakeFiles/glfw.dir/wgl_context.c.obj	b3cf8bf4bfde38b2
 9425	9550	6805408226325050	vendor/glfw/src/libglfw3.a	55ee566b0cf5b373
-9550	9795	6805408228709088	uml-creator.exe	3915aa4035c6d57b
-2	588	6805417307409425	build.ninja	4952f7ab240c3807
-5	770	6805417316456306	CMakeFiles/uml-creator.dir/main.cpp.obj	b896e492aadd4d5f
 771	1031	6805417319015882	uml-creator.exe	6203b276e6c05d77
+5	2084	6805430255983126	uml-creator/CMakeFiles/uml-creator.dir/main.cpp.obj	462fb3207c976e9b
+9	365	6805437466106569	uml-creator/uml-creator.exe	f5666ceec6beeeed
+2	457	6805438454130391	build.ninja	4952f7ab240c3807
+7	1431	6805438470059927	uml-creator/Math/CMakeFiles/Math.dir/Vec2.cpp.obj	ea6e92d9be526ac8
+17	1446	6805438470233019	uml-creator/Math/CMakeFiles/Math.dir/Vec4.cpp.obj	1c9a142577b5e436
+11	1254	6805438954440808	uml-creator/Math/CMakeFiles/Math.dir/Mat4.cpp.obj	fda0a8d4dd1528c0
+1255	1471	6805438956586419	uml-creator/Math/libMath.a	c4c6585969fa6e2
+1472	1727	6805438959092429	uml-creator/uml-creator.exe	5999cc6f9cced8fb

@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "uml-creator.exe"
+			"path" : "uml-creator/uml-creator.exe"
 		},
 		{
-			"path" : "uml-creator.pdb"
+			"path" : "uml-creator/uml-creator.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -19,6 +19,7 @@
 		],
 		"files" : 
 		[
+			"uml-creator/CMakeLists.txt",
 			"CMakeLists.txt"
 		],
 		"nodes" : 
@@ -29,32 +30,29 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 6,
+				"line" : 3,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 13,
+				"line" : 7,
 				"parent" : 0
 			},
 			{
-				"command" : 1,
-				"file" : 0,
-				"line" : 14,
-				"parent" : 0
+				"file" : 1
 			},
 			{
 				"command" : 2,
-				"file" : 0,
-				"line" : 17,
-				"parent" : 0
-			},
-			{
-				"command" : 2,
-				"file" : 0,
+				"file" : 1,
 				"line" : 18,
-				"parent" : 0
+				"parent" : 3
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 19,
+				"parent" : 3
 			}
 		]
 	},
@@ -100,14 +98,18 @@
 	[
 		{
 			"backtrace" : 2,
+			"id" : "Math::@f31bd73268375f939da0"
+		},
+		{
+			"backtrace" : 0,
 			"id" : "glfw::@31bd9730e6b8c71cc656"
 		},
 		{
-			"backtrace" : 3,
+			"backtrace" : 0,
 			"id" : "glad::@fd4c13af0d758e03700b"
 		}
 	],
-	"id" : "uml-creator::@6890427a1f51a3e7e1df",
+	"id" : "uml-creator::@4fed626ddf4411c56f90",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -122,11 +124,16 @@
 			},
 			{
 				"backtrace" : 2,
+				"fragment" : "uml-creator\\Math\\libMath.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 0,
 				"fragment" : "vendor\\glfw\\src\\libglfw3.a",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 3,
+				"backtrace" : 0,
 				"fragment" : "vendor\\glad\\libglad.a",
 				"role" : "libraries"
 			},
@@ -141,8 +148,8 @@
 	"nameOnDisk" : "uml-creator.exe",
 	"paths" : 
 	{
-		"build" : ".",
-		"source" : "."
+		"build" : "uml-creator",
+		"source" : "uml-creator"
 	},
 	"sourceGroups" : 
 	[
@@ -159,7 +166,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "main.cpp",
+			"path" : "uml-creator/main.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

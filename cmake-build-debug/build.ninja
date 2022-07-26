@@ -40,40 +40,6 @@ include CMakeFiles/rules.ninja
 # Logical path to working directory; prefix for absolute paths.
 
 cmake_ninja_workdir = C$:/projects/uml-creator/cmake-build-debug/
-# =============================================================================
-# Object build statements for EXECUTABLE target uml-creator
-
-
-#############################################
-# Order-only phony target for uml-creator
-
-build cmake_object_order_depends_target_uml-creator: phony || cmake_object_order_depends_target_glad cmake_object_order_depends_target_glfw
-
-build CMakeFiles/uml-creator.dir/main.cpp.obj: CXX_COMPILER__uml-creator_Debug C$:/projects/uml-creator/main.cpp || cmake_object_order_depends_target_uml-creator
-  DEP_FILE = CMakeFiles\uml-creator.dir\main.cpp.obj.d
-  FLAGS = -g -std=gnu++23
-  INCLUDES = -IC:/projects/uml-creator/vendor/glfw/include -IC:/projects/uml-creator/vendor/glad/include
-  OBJECT_DIR = CMakeFiles\uml-creator.dir
-  OBJECT_FILE_DIR = CMakeFiles\uml-creator.dir
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target uml-creator
-
-
-#############################################
-# Link the executable uml-creator.exe
-
-build uml-creator.exe: CXX_EXECUTABLE_LINKER__uml-creator_Debug CMakeFiles/uml-creator.dir/main.cpp.obj | vendor/glfw/src/libglfw3.a vendor/glad/libglad.a || vendor/glad/libglad.a vendor/glfw/src/libglfw3.a
-  FLAGS = -g
-  LINK_LIBRARIES = vendor/glfw/src/libglfw3.a  vendor/glad/libglad.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = CMakeFiles\uml-creator.dir
-  POST_BUILD = cd .
-  PRE_LINK = cd .
-  TARGET_FILE = uml-creator.exe
-  TARGET_IMPLIB = libuml-creator.dll.a
-  TARGET_PDB = uml-creator.exe.dbg
-
 
 #############################################
 # Utility command for edit_cache
@@ -138,6 +104,223 @@ build CMakeFiles/install/strip.util: CUSTOM_COMMAND all
   restat = 1
 
 build install/strip: phony CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# C:/projects/uml-creator/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for EXECUTABLE target uml-creator
+
+
+#############################################
+# Order-only phony target for uml-creator
+
+build cmake_object_order_depends_target_uml-creator: phony || cmake_object_order_depends_target_Math cmake_object_order_depends_target_glad cmake_object_order_depends_target_glfw
+
+build uml-creator/CMakeFiles/uml-creator.dir/main.cpp.obj: CXX_COMPILER__uml-creator_Debug C$:/projects/uml-creator/uml-creator/main.cpp || cmake_object_order_depends_target_uml-creator
+  DEP_FILE = uml-creator\CMakeFiles\uml-creator.dir\main.cpp.obj.d
+  FLAGS = -g -std=gnu++23
+  INCLUDES = -IC:/projects/uml-creator/vendor/glfw/include -IC:/projects/uml-creator/vendor/glad/include
+  OBJECT_DIR = uml-creator\CMakeFiles\uml-creator.dir
+  OBJECT_FILE_DIR = uml-creator\CMakeFiles\uml-creator.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target uml-creator
+
+
+#############################################
+# Link the executable uml-creator\uml-creator.exe
+
+build uml-creator/uml-creator.exe: CXX_EXECUTABLE_LINKER__uml-creator_Debug uml-creator/CMakeFiles/uml-creator.dir/main.cpp.obj | uml-creator/Math/libMath.a vendor/glfw/src/libglfw3.a vendor/glad/libglad.a || uml-creator/Math/libMath.a vendor/glad/libglad.a vendor/glfw/src/libglfw3.a
+  FLAGS = -g
+  LINK_LIBRARIES = uml-creator/Math/libMath.a  vendor/glfw/src/libglfw3.a  vendor/glad/libglad.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = uml-creator\CMakeFiles\uml-creator.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = uml-creator\uml-creator.exe
+  TARGET_IMPLIB = uml-creator\libuml-creator.dll.a
+  TARGET_PDB = uml-creator.exe.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build uml-creator/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\projects\uml-creator\cmake-build-debug\uml-creator && "C:\Program Files\JetBrains\CLion 2022.1.3\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build uml-creator/edit_cache: phony uml-creator/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build uml-creator/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\projects\uml-creator\cmake-build-debug\uml-creator && "C:\Program Files\JetBrains\CLion 2022.1.3\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -SC:\projects\uml-creator -BC:\projects\uml-creator\cmake-build-debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build uml-creator/rebuild_cache: phony uml-creator/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build uml-creator/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build uml-creator/CMakeFiles/install.util: CUSTOM_COMMAND uml-creator/all
+  COMMAND = cmd.exe /C "cd /D C:\projects\uml-creator\cmake-build-debug\uml-creator && "C:\Program Files\JetBrains\CLion 2022.1.3\bin\cmake\win\bin\cmake.exe" -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build uml-creator/install: phony uml-creator/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build uml-creator/CMakeFiles/install/local.util: CUSTOM_COMMAND uml-creator/all
+  COMMAND = cmd.exe /C "cd /D C:\projects\uml-creator\cmake-build-debug\uml-creator && "C:\Program Files\JetBrains\CLion 2022.1.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build uml-creator/install/local: phony uml-creator/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build uml-creator/CMakeFiles/install/strip.util: CUSTOM_COMMAND uml-creator/all
+  COMMAND = cmd.exe /C "cd /D C:\projects\uml-creator\cmake-build-debug\uml-creator && "C:\Program Files\JetBrains\CLion 2022.1.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build uml-creator/install/strip: phony uml-creator/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# C:/projects/uml-creator/uml-creator/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target Math
+
+
+#############################################
+# Order-only phony target for Math
+
+build cmake_object_order_depends_target_Math: phony || uml-creator/Math/CMakeFiles/Math.dir
+
+build uml-creator/Math/CMakeFiles/Math.dir/Vec2.cpp.obj: CXX_COMPILER__Math_Debug C$:/projects/uml-creator/uml-creator/Math/Vec2.cpp || cmake_object_order_depends_target_Math
+  DEP_FILE = uml-creator\Math\CMakeFiles\Math.dir\Vec2.cpp.obj.d
+  FLAGS = -g -std=gnu++23
+  OBJECT_DIR = uml-creator\Math\CMakeFiles\Math.dir
+  OBJECT_FILE_DIR = uml-creator\Math\CMakeFiles\Math.dir
+
+build uml-creator/Math/CMakeFiles/Math.dir/Vec4.cpp.obj: CXX_COMPILER__Math_Debug C$:/projects/uml-creator/uml-creator/Math/Vec4.cpp || cmake_object_order_depends_target_Math
+  DEP_FILE = uml-creator\Math\CMakeFiles\Math.dir\Vec4.cpp.obj.d
+  FLAGS = -g -std=gnu++23
+  OBJECT_DIR = uml-creator\Math\CMakeFiles\Math.dir
+  OBJECT_FILE_DIR = uml-creator\Math\CMakeFiles\Math.dir
+
+build uml-creator/Math/CMakeFiles/Math.dir/Mat4.cpp.obj: CXX_COMPILER__Math_Debug C$:/projects/uml-creator/uml-creator/Math/Mat4.cpp || cmake_object_order_depends_target_Math
+  DEP_FILE = uml-creator\Math\CMakeFiles\Math.dir\Mat4.cpp.obj.d
+  FLAGS = -g -std=gnu++23
+  OBJECT_DIR = uml-creator\Math\CMakeFiles\Math.dir
+  OBJECT_FILE_DIR = uml-creator\Math\CMakeFiles\Math.dir
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target Math
+
+
+#############################################
+# Link the static library uml-creator\Math\libMath.a
+
+build uml-creator/Math/libMath.a: CXX_STATIC_LIBRARY_LINKER__Math_Debug uml-creator/Math/CMakeFiles/Math.dir/Vec2.cpp.obj uml-creator/Math/CMakeFiles/Math.dir/Vec4.cpp.obj uml-creator/Math/CMakeFiles/Math.dir/Mat4.cpp.obj
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = uml-creator\Math\CMakeFiles\Math.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = uml-creator\Math\libMath.a
+  TARGET_PDB = Math.a.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build uml-creator/Math/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\projects\uml-creator\cmake-build-debug\uml-creator\Math && "C:\Program Files\JetBrains\CLion 2022.1.3\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build uml-creator/Math/edit_cache: phony uml-creator/Math/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build uml-creator/Math/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\projects\uml-creator\cmake-build-debug\uml-creator\Math && "C:\Program Files\JetBrains\CLion 2022.1.3\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -SC:\projects\uml-creator -BC:\projects\uml-creator\cmake-build-debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build uml-creator/Math/rebuild_cache: phony uml-creator/Math/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build uml-creator/Math/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build uml-creator/Math/CMakeFiles/install.util: CUSTOM_COMMAND uml-creator/Math/all
+  COMMAND = cmd.exe /C "cd /D C:\projects\uml-creator\cmake-build-debug\uml-creator\Math && "C:\Program Files\JetBrains\CLion 2022.1.3\bin\cmake\win\bin\cmake.exe" -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build uml-creator/Math/install: phony uml-creator/Math/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build uml-creator/Math/CMakeFiles/install/local.util: CUSTOM_COMMAND uml-creator/Math/all
+  COMMAND = cmd.exe /C "cd /D C:\projects\uml-creator\cmake-build-debug\uml-creator\Math && "C:\Program Files\JetBrains\CLion 2022.1.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build uml-creator/Math/install/local: phony uml-creator/Math/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build uml-creator/Math/CMakeFiles/install/strip.util: CUSTOM_COMMAND uml-creator/Math/all
+  COMMAND = cmd.exe /C "cd /D C:\projects\uml-creator\cmake-build-debug\uml-creator\Math && "C:\Program Files\JetBrains\CLion 2022.1.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build uml-creator/Math/install/strip: phony uml-creator/Math/CMakeFiles/install/strip.util
 
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
@@ -604,15 +787,21 @@ build vendor/glad/install/strip: phony vendor/glad/CMakeFiles/install/strip.util
 # =============================================================================
 # Target aliases.
 
+build Math: phony uml-creator/Math/libMath.a
+
 build glad: phony vendor/glad/libglad.a
 
 build glfw: phony vendor/glfw/src/libglfw3.a
+
+build libMath.a: phony uml-creator/Math/libMath.a
 
 build libglad.a: phony vendor/glad/libglad.a
 
 build libglfw3.a: phony vendor/glfw/src/libglfw3.a
 
-build uml-creator: phony uml-creator.exe
+build uml-creator: phony uml-creator/uml-creator.exe
+
+build uml-creator.exe: phony uml-creator/uml-creator.exe
 
 build uninstall: phony vendor/glfw/uninstall
 
@@ -626,7 +815,21 @@ build update_mappings: phony vendor/glfw/src/update_mappings
 #############################################
 # Folder: C:/projects/uml-creator/cmake-build-debug
 
-build all: phony uml-creator.exe vendor/glfw/all vendor/glad/all
+build all: phony uml-creator/all vendor/glfw/all vendor/glad/all
+
+# =============================================================================
+
+#############################################
+# Folder: C:/projects/uml-creator/cmake-build-debug/uml-creator
+
+build uml-creator/all: phony uml-creator/uml-creator.exe uml-creator/Math/all
+
+# =============================================================================
+
+#############################################
+# Folder: C:/projects/uml-creator/cmake-build-debug/uml-creator/Math
+
+build uml-creator/Math/all: phony uml-creator/Math/libMath.a
 
 # =============================================================================
 
@@ -656,14 +859,14 @@ build vendor/glfw/src/all: phony vendor/glfw/src/libglfw3.a
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | ../CMakeLists.txt ../vendor/glad/CMakeLists.txt ../vendor/glfw/CMakeLists.txt ../vendor/glfw/CMake/cmake_uninstall.cmake.in ../vendor/glfw/CMake/glfw3.pc.in ../vendor/glfw/CMake/glfw3Config.cmake.in ../vendor/glfw/src/CMakeLists.txt C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/BasicConfigVersion-SameMajorVersion.cmake.in C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeDependentOption.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakePackageConfigHelpers.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CheckCSourceCompiles.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CheckIncludeFile.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CheckLibraryExists.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/FindDoxygen.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/FindPackageMessage.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/FindThreads.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/GNUInstallDirs.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Internal/CheckSourceCompiles.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/WindowsPaths.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.22.3/CMakeCCompiler.cmake CMakeFiles/3.22.3/CMakeCXXCompiler.cmake CMakeFiles/3.22.3/CMakeRCCompiler.cmake CMakeFiles/3.22.3/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | ../CMakeLists.txt ../uml-creator/CMakeLists.txt ../uml-creator/Math/CMakeLists.txt ../vendor/glad/CMakeLists.txt ../vendor/glfw/CMakeLists.txt ../vendor/glfw/CMake/cmake_uninstall.cmake.in ../vendor/glfw/CMake/glfw3.pc.in ../vendor/glfw/CMake/glfw3Config.cmake.in ../vendor/glfw/src/CMakeLists.txt C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/BasicConfigVersion-SameMajorVersion.cmake.in C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeDependentOption.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakePackageConfigHelpers.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CheckCSourceCompiles.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CheckIncludeFile.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CheckLibraryExists.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/FindDoxygen.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/FindPackageMessage.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/FindThreads.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/GNUInstallDirs.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Internal/CheckSourceCompiles.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/WindowsPaths.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.22.3/CMakeCCompiler.cmake CMakeFiles/3.22.3/CMakeCXXCompiler.cmake CMakeFiles/3.22.3/CMakeRCCompiler.cmake CMakeFiles/3.22.3/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build ../CMakeLists.txt ../vendor/glad/CMakeLists.txt ../vendor/glfw/CMakeLists.txt ../vendor/glfw/CMake/cmake_uninstall.cmake.in ../vendor/glfw/CMake/glfw3.pc.in ../vendor/glfw/CMake/glfw3Config.cmake.in ../vendor/glfw/src/CMakeLists.txt C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/BasicConfigVersion-SameMajorVersion.cmake.in C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeDependentOption.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakePackageConfigHelpers.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CheckCSourceCompiles.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CheckIncludeFile.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CheckLibraryExists.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/FindDoxygen.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/FindPackageMessage.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/FindThreads.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/GNUInstallDirs.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Internal/CheckSourceCompiles.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/WindowsPaths.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.22.3/CMakeCCompiler.cmake CMakeFiles/3.22.3/CMakeCXXCompiler.cmake CMakeFiles/3.22.3/CMakeRCCompiler.cmake CMakeFiles/3.22.3/CMakeSystem.cmake: phony
+build ../CMakeLists.txt ../uml-creator/CMakeLists.txt ../uml-creator/Math/CMakeLists.txt ../vendor/glad/CMakeLists.txt ../vendor/glfw/CMakeLists.txt ../vendor/glfw/CMake/cmake_uninstall.cmake.in ../vendor/glfw/CMake/glfw3.pc.in ../vendor/glfw/CMake/glfw3Config.cmake.in ../vendor/glfw/src/CMakeLists.txt C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/BasicConfigVersion-SameMajorVersion.cmake.in C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeDependentOption.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakePackageConfigHelpers.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CheckCSourceCompiles.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CheckIncludeFile.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CheckLibraryExists.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/FindDoxygen.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/FindPackageMessage.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/FindThreads.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/GNUInstallDirs.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Internal/CheckSourceCompiles.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/Platform/WindowsPaths.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.22.3/CMakeCCompiler.cmake CMakeFiles/3.22.3/CMakeCXXCompiler.cmake CMakeFiles/3.22.3/CMakeRCCompiler.cmake CMakeFiles/3.22.3/CMakeSystem.cmake: phony
 
 
 #############################################

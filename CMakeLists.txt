@@ -3,9 +3,10 @@ project(uml-creator)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(uml-creator main.cpp)
+# Adding subdirectory for uml creator
+add_subdirectory(uml-creator)
 
-# Adding subdirectories for libraries
+# Adding subdirectories for vendor libraries
 add_subdirectory(vendor/glfw)
 add_subdirectory(vendor/glad)
 

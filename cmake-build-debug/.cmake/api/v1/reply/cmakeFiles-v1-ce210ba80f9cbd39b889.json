@@ -146,6 +146,12 @@
 			"path" : "C:/Program Files/JetBrains/CLion 2022.1.3/bin/cmake/win/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake"
 		},
 		{
+			"path" : "uml-creator/CMakeLists.txt"
+		},
+		{
+			"path" : "uml-creator/Math/CMakeLists.txt"
+		},
+		{
 			"path" : "vendor/glfw/CMakeLists.txt"
 		},
 		{
