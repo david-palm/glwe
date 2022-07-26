@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "uml_creator.exe"
+			"path" : "uml-creator.exe"
 		},
 		{
-			"path" : "uml_creator.pdb"
+			"path" : "uml-creator.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -13,7 +13,9 @@
 	{
 		"commands" : 
 		[
-			"add_executable"
+			"add_executable",
+			"target_link_libraries",
+			"target_include_directories"
 		],
 		"files" : 
 		[
@@ -29,6 +31,30 @@
 				"file" : 0,
 				"line" : 6,
 				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 13,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 14,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 17,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 18,
+				"parent" : 0
 			}
 		]
 	},
@@ -42,6 +68,17 @@
 				},
 				{
 					"fragment" : "-std=gnu++23"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 4,
+					"path" : "C:/projects/uml-creator/vendor/glfw/include"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "C:/projects/uml-creator/vendor/glad/include"
 				}
 			],
 			"language" : "CXX",
@@ -59,7 +96,18 @@
 			]
 		}
 	],
-	"id" : "uml_creator::@6890427a1f51a3e7e1df",
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "glfw::@31bd9730e6b8c71cc656"
+		},
+		{
+			"backtrace" : 3,
+			"id" : "glad::@fd4c13af0d758e03700b"
+		}
+	],
+	"id" : "uml-creator::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -73,14 +121,24 @@
 				"role" : "flags"
 			},
 			{
+				"backtrace" : 2,
+				"fragment" : "vendor\\glfw\\src\\libglfw3.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "vendor\\glad\\libglad.a",
+				"role" : "libraries"
+			},
+			{
 				"fragment" : "-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32",
 				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
 	},
-	"name" : "uml_creator",
-	"nameOnDisk" : "uml_creator.exe",
+	"name" : "uml-creator",
+	"nameOnDisk" : "uml-creator.exe",
 	"paths" : 
 	{
 		"build" : ".",

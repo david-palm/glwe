@@ -440,3 +440,55 @@ Parsed CXX implicit link information from above output:
   implicit fwks: []
 
 
+Determining if the include file pthread.h exists passed with the following output:
+Change Dir: C:/projects/uml-creator/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/JetBrains/CLion 2022.1.3/bin/ninja/win/ninja.exe cmTC_b3fd1 && [1/2] Building C object CMakeFiles/cmTC_b3fd1.dir/CheckIncludeFile.c.obj
+[2/2] Linking C executable cmTC_b3fd1.exe
+
+
+
+Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD succeeded with the following output:
+Change Dir: C:/projects/uml-creator/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/JetBrains/CLion 2022.1.3/bin/ninja/win/ninja.exe cmTC_6d64b && [1/2] Building C object CMakeFiles/cmTC_6d64b.dir/src.c.obj
+[2/2] Linking C executable cmTC_6d64b.exe
+
+
+Source file was:
+#include <pthread.h>
+
+static void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_cancel(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+
+Determining if the include file dinput.h exists passed with the following output:
+Change Dir: C:/projects/uml-creator/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/JetBrains/CLion 2022.1.3/bin/ninja/win/ninja.exe cmTC_f9ed5 && [1/2] Building C object CMakeFiles/cmTC_f9ed5.dir/CheckIncludeFile.c.obj
+[2/2] Linking C executable cmTC_f9ed5.exe
+
+
+
+Determining if the include file xinput.h exists passed with the following output:
+Change Dir: C:/projects/uml-creator/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/JetBrains/CLion 2022.1.3/bin/ninja/win/ninja.exe cmTC_66633 && [1/2] Building C object CMakeFiles/cmTC_66633.dir/CheckIncludeFile.c.obj
+[2/2] Linking C executable cmTC_66633.exe
+
+
+
