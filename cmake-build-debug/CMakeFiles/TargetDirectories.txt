@@ -1,0 +1,3 @@
+C:/projects/uml-creator/cmake-build-debug/CMakeFiles/uml_creator.dir
+C:/projects/uml-creator/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/projects/uml-creator/cmake-build-debug/CMakeFiles/rebuild_cache.dir
