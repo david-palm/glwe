@@ -1,7 +1,14 @@
 #include <iostream>
-
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#define GLFW_INCLUDE_ES3
+#include "GLFW/glfw3.h"
+#else
 #include "GLFW/glfw3.h"
 #include "glad/glad.h"
+#endif
+
+
 
 const char *vertexShaderSource = "#version 300 es\n"
                                  "layout (location = 0) in vec3 aPos;\n"
@@ -17,12 +24,31 @@ const char *fragmentShaderSource = "#version 300 es\n"
                                    "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
                                    "}\n\0";
 
+GLFWwindow* window;
+unsigned int shaderProgramId;
+unsigned int vaoId, vboId;
 
-int main(void)
+void mainLoop()
 {
+    /* Render here */
+    glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glUseProgram(shaderProgramId);
+    glBindVertexArray(vaoId);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+
+    /* Swap front and back buffers */
+    glfwSwapBuffers(window);
+
+    /* Poll for and process events */
+    glfwPollEvents();
+
+}
+
+int main() {
     // Initialize glfw and end program if problem ocurred
-    if (!glfwInit())
-    {
+    if (!glfwInit()) {
         std::cerr << "Failed to initialize GLFW" << std::endl;
         return -1;
     }
@@ -31,11 +57,12 @@ int main(void)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    // Creating a window and ending program if creation failed
-    GLFWwindow* window = glfwCreateWindow(1280, 720, "Hello World", NULL, NULL);
 
-    if (!window)
-    {
+
+    // Creating a window and ending program if creation failed
+    window = glfwCreateWindow(1280, 720, "Hello World", NULL, NULL);
+
+    if (!window) {
         std::cerr << "Failed to initialize GLFW window" << std::endl;
         glfwTerminate();
         return -1;
@@ -43,14 +70,13 @@ int main(void)
 
     // Setting current window as context
     glfwMakeContextCurrent(window);
-
+#ifndef __EMSCRIPTEN__
     // Loading OpenGL ES2 pointers with glad and ending program if failing to do so
-    if (!gladLoadGLES2Loader((GLADloadproc)glfwGetProcAddress))
-    {
+    if (!gladLoadGLES2Loader((GLADloadproc) glfwGetProcAddress)) {
         std::cerr << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
-
+#endif
     // Creating shaders
     unsigned int vertexShaderId = glCreateShader(GL_VERTEX_SHADER);
     unsigned int fragmentShaderId = glCreateShader(GL_FRAGMENT_SHADER);
@@ -64,22 +90,20 @@ int main(void)
     int success;
     char infoLog[512];
     glGetShaderiv(vertexShaderId, GL_COMPILE_STATUS, &success);
-    if (!success)
-    {
+    if (!success) {
         glGetShaderInfoLog(vertexShaderId, 512, NULL, infoLog);
         std::cerr << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
     }
 
     glGetShaderiv(fragmentShaderId, GL_COMPILE_STATUS, &success);
-    if (!success)
-    {
+    if (!success) {
         glGetShaderInfoLog(fragmentShaderId, 512, NULL, infoLog);
         std::cerr << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
     }
 
 
     // Creating shader program
-    unsigned int shaderProgramId = glCreateProgram();
+    shaderProgramId = glCreateProgram();
 
     glAttachShader(shaderProgramId, vertexShaderId);
     glAttachShader(shaderProgramId, fragmentShaderId);
@@ -96,9 +120,8 @@ int main(void)
     float vertices[] = {
             -0.5f, -0.5f, 0.0f, // left
             0.5f, -0.5f, 0.0f, // right
-            0.0f,  0.5f, 0.0f  // top
+            0.0f, 0.5f, 0.0f  // top
     };
-    unsigned int vboId, vaoId;
 
     glGenVertexArrays(1, &vaoId);
     glGenBuffers(1, &vboId);
@@ -108,31 +131,20 @@ int main(void)
     glBindBuffer(GL_ARRAY_BUFFER, vboId);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) 0);
     glEnableVertexAttribArray(0);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glBindVertexArray(0);
 
+#ifdef __EMSCRIPTEN__
+    emscripten_set_main_loop(mainLoop, 0, true);
+#else
     /* Loop until the user closes the window */
-    while (!glfwWindowShouldClose(window))
-    {
-        /* Render here */
-        glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        glUseProgram(shaderProgramId);
-        glBindVertexArray(vaoId);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
-
-        /* Swap front and back buffers */
-        glfwSwapBuffers(window);
-
-        /* Poll for and process events */
-        glfwPollEvents();
+    while (!glfwWindowShouldClose(window)) {
+        mainLoop();
     }
-
     glfwTerminate();
-    return 0;
+#endif
 }

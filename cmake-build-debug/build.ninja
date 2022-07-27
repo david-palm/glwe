@@ -40,6 +40,40 @@ include CMakeFiles/rules.ninja
 # Logical path to working directory; prefix for absolute paths.
 
 cmake_ninja_workdir = C$:/projects/uml-creator/cmake-build-debug/
+# =============================================================================
+# Object build statements for EXECUTABLE target uml-creator
+
+
+#############################################
+# Order-only phony target for uml-creator
+
+build cmake_object_order_depends_target_uml-creator: phony || cmake_object_order_depends_target_Math cmake_object_order_depends_target_glad cmake_object_order_depends_target_glfw
+
+build CMakeFiles/uml-creator.dir/uml-creator/main.cpp.obj: CXX_COMPILER__uml-creator_Debug C$:/projects/uml-creator/uml-creator/main.cpp || cmake_object_order_depends_target_uml-creator
+  DEP_FILE = CMakeFiles\uml-creator.dir\uml-creator\main.cpp.obj.d
+  FLAGS = -g
+  INCLUDES = -IC:/projects/uml-creator/vendor/glfw/include -IC:/projects/uml-creator/vendor/glad/include
+  OBJECT_DIR = CMakeFiles\uml-creator.dir
+  OBJECT_FILE_DIR = CMakeFiles\uml-creator.dir\uml-creator
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target uml-creator
+
+
+#############################################
+# Link the executable uml-creator.exe
+
+build uml-creator.exe: CXX_EXECUTABLE_LINKER__uml-creator_Debug CMakeFiles/uml-creator.dir/uml-creator/main.cpp.obj | uml-creator/Math/libMath.a vendor/glfw/src/libglfw3.a vendor/glad/libglad.a || uml-creator/Math/libMath.a vendor/glad/libglad.a vendor/glfw/src/libglfw3.a
+  FLAGS = -g
+  LINK_LIBRARIES = uml-creator/Math/libMath.a  vendor/glfw/src/libglfw3.a  vendor/glad/libglad.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\uml-creator.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = uml-creator.exe
+  TARGET_IMPLIB = libuml-creator.dll.a
+  TARGET_PDB = uml-creator.exe.dbg
+
 
 #############################################
 # Utility command for edit_cache
@@ -109,40 +143,6 @@ build install/strip: phony CMakeFiles/install/strip.util
 # Write statements declared in CMakeLists.txt:
 # C:/projects/uml-creator/CMakeLists.txt
 # =============================================================================
-
-# =============================================================================
-# Object build statements for EXECUTABLE target uml-creator
-
-
-#############################################
-# Order-only phony target for uml-creator
-
-build cmake_object_order_depends_target_uml-creator: phony || cmake_object_order_depends_target_Math cmake_object_order_depends_target_glad cmake_object_order_depends_target_glfw
-
-build uml-creator/CMakeFiles/uml-creator.dir/main.cpp.obj: CXX_COMPILER__uml-creator_Debug C$:/projects/uml-creator/uml-creator/main.cpp || cmake_object_order_depends_target_uml-creator
-  DEP_FILE = uml-creator\CMakeFiles\uml-creator.dir\main.cpp.obj.d
-  FLAGS = -g -std=gnu++23
-  INCLUDES = -IC:/projects/uml-creator/vendor/glfw/include -IC:/projects/uml-creator/vendor/glad/include
-  OBJECT_DIR = uml-creator\CMakeFiles\uml-creator.dir
-  OBJECT_FILE_DIR = uml-creator\CMakeFiles\uml-creator.dir
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target uml-creator
-
-
-#############################################
-# Link the executable uml-creator\uml-creator.exe
-
-build uml-creator/uml-creator.exe: CXX_EXECUTABLE_LINKER__uml-creator_Debug uml-creator/CMakeFiles/uml-creator.dir/main.cpp.obj | uml-creator/Math/libMath.a vendor/glfw/src/libglfw3.a vendor/glad/libglad.a || uml-creator/Math/libMath.a vendor/glad/libglad.a vendor/glfw/src/libglfw3.a
-  FLAGS = -g
-  LINK_LIBRARIES = uml-creator/Math/libMath.a  vendor/glfw/src/libglfw3.a  vendor/glad/libglad.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = uml-creator\CMakeFiles\uml-creator.dir
-  POST_BUILD = cd .
-  PRE_LINK = cd .
-  TARGET_FILE = uml-creator\uml-creator.exe
-  TARGET_IMPLIB = uml-creator\libuml-creator.dll.a
-  TARGET_PDB = uml-creator.exe.dbg
 
 
 #############################################
@@ -799,9 +799,7 @@ build libglad.a: phony vendor/glad/libglad.a
 
 build libglfw3.a: phony vendor/glfw/src/libglfw3.a
 
-build uml-creator: phony uml-creator/uml-creator.exe
-
-build uml-creator.exe: phony uml-creator/uml-creator.exe
+build uml-creator: phony uml-creator.exe
 
 build uninstall: phony vendor/glfw/uninstall
 
@@ -815,14 +813,14 @@ build update_mappings: phony vendor/glfw/src/update_mappings
 #############################################
 # Folder: C:/projects/uml-creator/cmake-build-debug
 
-build all: phony uml-creator/all vendor/glfw/all vendor/glad/all
+build all: phony uml-creator.exe uml-creator/all vendor/glfw/all vendor/glad/all
 
 # =============================================================================
 
 #############################################
 # Folder: C:/projects/uml-creator/cmake-build-debug/uml-creator
 
-build uml-creator/all: phony uml-creator/uml-creator.exe uml-creator/Math/all
+build uml-creator/all: phony uml-creator/Math/all
 
 # =============================================================================
 
