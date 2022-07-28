@@ -10,14 +10,8 @@
 #include "glad/glad.h"
 #endif
 
-
-Shader::Shader()
-{
-
-}
 Shader::Shader(const std::string& vertexShaderSource, const std::string& fragmentShaderSource)
 {
-
     // Creating a vertex shader
     GLuint vertexShaderId = glCreateShader(GL_VERTEX_SHADER);
 
@@ -125,11 +119,11 @@ Shader::~Shader()
     glDeleteProgram(m_ProgramId);
 }
 
-void Shader::Bind() const
+void Shader::bind() const
 {
     glUseProgram(m_ProgramId);
 }
-void Shader::Unbind() const
+void Shader::unbind() const
 {
     glUseProgram(0);
 }

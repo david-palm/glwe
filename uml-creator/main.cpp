@@ -40,7 +40,7 @@ void mainLoop()
     glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    shader->Bind();
+    shader->bind();
     glBindVertexArray(vaoId);
     glDrawElements(GL_TRIANGLES, indexBuffer->getCount(), GL_UNSIGNED_INT, nullptr);
 
@@ -103,7 +103,7 @@ int main() {
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) 0);
     glEnableVertexAttribArray(0);
-    
+
     vertexBuffer->unbind();
 
     glBindVertexArray(0);

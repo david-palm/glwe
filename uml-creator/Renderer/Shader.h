@@ -7,8 +7,8 @@ public:
     Shader(const std::string& vertexShaderSource, const std::string& fragmentShaderSource);
     ~Shader();
 
-    void Bind() const;
-    void Unbind() const;
+    void bind() const;
+    void unbind() const;
 private:
     uint32_t m_ProgramId;
 };
