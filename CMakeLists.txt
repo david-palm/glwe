@@ -20,6 +20,6 @@ else()
     target_link_libraries(uml-creator glad)
 
     # Adding include directories of libraries to main uml-creator project
-    target_include_directories(uml-creator PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/vendor/glfw/include)
-    target_include_directories(uml-creator PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/vendor/glad/include)
+    target_include_directories(uml-creator PUBLIC /vendor/glfw/include)
+    target_include_directories(uml-creator PUBLIC /vendor/glad/include)
 endif()
