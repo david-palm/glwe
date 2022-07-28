@@ -11,6 +11,7 @@
 #endif
 
 #include "Renderer/Shader.h"
+#include "Renderer/Buffer.h"
 
 std::string vertexShaderSource = R"(#version 300 es
                                  layout (location = 0) in vec3 aPos;
@@ -28,8 +29,11 @@ std::string fragmentShaderSource = R"(#version 300 es
 
 GLFWwindow* window;
 std::unique_ptr<Shader> shader;
+std::unique_ptr<VertexBuffer> vertexBuffer;
+std::unique_ptr<IndexBuffer> indexBuffer;
 unsigned int vaoId, vboId;
 
+// Render loop. Needs to be a separate function because of Emscripten
 void mainLoop()
 {
     /* Render here */
@@ -38,7 +42,7 @@ void mainLoop()
 
     shader->Bind();
     glBindVertexArray(vaoId);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDrawElements(GL_TRIANGLES, indexBuffer->getCount(), GL_UNSIGNED_INT, nullptr);
 
     /* Swap front and back buffers */
     glfwSwapBuffers(window);
@@ -49,7 +53,7 @@ void mainLoop()
 }
 
 int main() {
-    // Initialize glfw and end program if problem ocurred
+    // Initialize glfw and end program if problem occurred
     if (!glfwInit()) {
         std::cerr << "Failed to initialize GLFW" << std::endl;
         return -1;
@@ -77,10 +81,6 @@ int main() {
         return -1;
     }
 #endif
-
-    shader.reset(new Shader(vertexShaderSource, fragmentShaderSource));
-
-
     // Create vertex buffer
     float vertices[] = {
             -0.5f, -0.5f, 0.0f, // left
@@ -88,18 +88,23 @@ int main() {
             0.0f, 0.5f, 0.0f  // top
     };
 
+    uint32_t indices[3] = { 0, 1, 2 };
+
+    shader.reset(new Shader(vertexShaderSource, fragmentShaderSource));
+    vertexBuffer.reset(VertexBuffer::create(vertices, sizeof(vertices)));
+    indexBuffer.reset(IndexBuffer::create(indices, sizeof(indices) / sizeof(uint32_t)));
+
     glGenVertexArrays(1, &vaoId);
-    glGenBuffers(1, &vboId);
 
     glBindVertexArray(vaoId);
 
-    glBindBuffer(GL_ARRAY_BUFFER, vboId);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    vertexBuffer->bind();
+    indexBuffer->bind();
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) 0);
     glEnableVertexAttribArray(0);
-
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    
+    vertexBuffer->unbind();
 
     glBindVertexArray(0);
 

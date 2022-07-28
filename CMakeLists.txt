@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.22)
 project(uml-creator)
-add_executable(uml-creator uml-creator/main.cpp)
+add_executable(uml-creator uml-creator/main.cpp uml-creator/Platform/OpenGL/OpenGLBuffer.h uml-creator/Platform/OpenGL/OpenGLBuffer.cpp)
 set(CMAKE_CXX_STANDARD 23)
 
 # Adding subdirectory for uml creator
