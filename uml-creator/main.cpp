@@ -98,7 +98,7 @@ int main() {
     shader.reset(new Shader(vertexShaderSource, fragmentShaderSource));
     vertexBuffer.reset(VertexBuffer::create(vertices, sizeof(vertices)));
     indexBuffer.reset(IndexBuffer::create(indices, sizeof(indices) / sizeof(uint32_t)));
-    
+
     glGenVertexArrays(1, &vaoId);
 
     glBindVertexArray(vaoId);

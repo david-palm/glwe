@@ -12,7 +12,7 @@ public:
     virtual void unbind() const override;
 
     virtual const BufferLayout& getLayout() const override { return m_Layout; }
-    virtual void setLayout(const BufferLayout& bufferLayout) { m_Layout = bufferLayout; }
+    virtual void setLayout(const BufferLayout& bufferLayout) override{ m_Layout = bufferLayout; }
 private:
     uint32_t m_VboId;
     BufferLayout m_Layout;

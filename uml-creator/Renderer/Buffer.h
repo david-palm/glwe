@@ -3,11 +3,17 @@
 #include <cstdint>
 #include <vector>
 #include <iostream>
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#define GLFW_INCLUDE_ES3
+#include "GLFW/glfw3.h"
+#else
 #include "glad/glad.h"
+#endif
 
 enum class ShaderDataType: uint8_t
 {
-    None = 0, Bool, Int, Float, Vec2, Vec4, Mat4
+    Bool, Int, Float, Vec2, Vec4, Mat4
 };
 
 static GLenum convertShaderDataTypeToGLBaseType(ShaderDataType shaderDataType)
@@ -23,7 +29,7 @@ static GLenum convertShaderDataTypeToGLBaseType(ShaderDataType shaderDataType)
     }
     std::cerr << "Unknown shader data type!" << std::endl;
 
-    return 0;
+    return -1;
 }
 
 static uint32_t sizeOfShaderDataType(ShaderDataType dataType)
@@ -39,7 +45,7 @@ static uint32_t sizeOfShaderDataType(ShaderDataType dataType)
     }
     std::cerr << "Unknown shader data type!" << std::endl;
 
-    return 0;
+    return -1;
 
 }
 class BufferElement
@@ -62,7 +68,9 @@ public:
             case ShaderDataType::Vec4:  return 4;
             case ShaderDataType::Mat4:  return 16;
         }
-        return 0;
+        std::cerr << "Unknown shader data type!" << std::endl;
+
+        return -1;
     }
     inline const ShaderDataType getDataType() const{ return m_DataType; }
     inline const std::string getName() const { return m_Name; }
