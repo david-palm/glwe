@@ -14,17 +14,22 @@
 #include "Renderer/Buffer.h"
 
 std::string vertexShaderSource = R"(#version 300 es
-                                 layout (location = 0) in vec3 aPos;
+                                 layout (location = 0) in vec2 aPos;
+                                 layout (location = 1) in vec4 aColor;
+                                 out vec4 vColor;
                                  void main()
                                  {
-                                    gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
+                                    vColor = aColor;
+                                    gl_Position = vec4(aPos.x, aPos.y, 0.0, 1.0);
                                  })";
 std::string fragmentShaderSource = R"(#version 300 es
                                    precision mediump float;
                                    out vec4 FragColor;
+                                   in vec4 vColor;
                                    void main()
                                    {
-                                      FragColor = vec4(0.0f, 0.8f, 0.8f, 1.0f);
+                                      //FragColor = vec4(0.0f, 0.8f, 0.8f, 1.0f);
+                                        FragColor = vColor;
                                    })";
 
 GLFWwindow* window;
@@ -82,10 +87,10 @@ int main() {
     }
 #endif
     // Create vertex buffer
-    float vertices[] = {
-            -0.5f, -0.5f, 0.0f, // left
-            0.5f, -0.5f, 0.0f, // right
-            0.0f, 0.5f, 0.0f  // top
+    float vertices[18] = {
+            -0.5f, -0.5f,  1.0f, 0.0f, 0.0f, 1.0f,// left
+            0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f,// right
+            0.0f, 0.5f,   0.0f, 0.0f, 1.0f, 1.0f// top
     };
 
     uint32_t indices[3] = { 0, 1, 2 };
@@ -94,6 +99,8 @@ int main() {
     vertexBuffer.reset(VertexBuffer::create(vertices, sizeof(vertices)));
     indexBuffer.reset(IndexBuffer::create(indices, sizeof(indices) / sizeof(uint32_t)));
 
+
+
     glGenVertexArrays(1, &vaoId);
 
     glBindVertexArray(vaoId);
@@ -101,8 +108,27 @@ int main() {
     vertexBuffer->bind();
     indexBuffer->bind();
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) 0);
-    glEnableVertexAttribArray(0);
+    BufferLayout bufferLayout =
+            {
+                    { ShaderDataType::Vec2, "aPosition" },
+                    { ShaderDataType::Vec4, "aColor"}
+            };
+
+    uint32_t index = 0;
+    for(const auto& element: bufferLayout)
+    {
+        glVertexAttribPointer(index,
+                              element.getComponentCount(),
+                              convertShaderDataTypeToGLBaseType(element.getDataType()),
+                              element.isNormalized() ? GL_TRUE : GL_FALSE,
+                              bufferLayout.getStride(),
+                              (void *) element.getOffset());
+        glEnableVertexAttribArray(index);
+        index++;
+    }
+
+    //glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) 0);
+    //glEnableVertexAttribArray(0);
 
     vertexBuffer->unbind();
 
