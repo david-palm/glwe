@@ -16,22 +16,6 @@ enum class ShaderDataType: uint8_t
     Bool, Int, Float, Vec2, Vec4, Mat4
 };
 
-static GLenum convertShaderDataTypeToGLBaseType(ShaderDataType shaderDataType)
-{
-    switch(shaderDataType)
-    {
-        case ShaderDataType::Bool:  return GL_BOOL;
-        case ShaderDataType::Int:   return GL_INT;
-        case ShaderDataType::Float: return GL_FLOAT;
-        case ShaderDataType::Vec2:  return GL_FLOAT;
-        case ShaderDataType::Vec4:  return GL_FLOAT;
-        case ShaderDataType::Mat4:  return GL_FLOAT;
-    }
-    std::cerr << "Unknown shader data type!" << std::endl;
-
-    return -1;
-}
-
 static uint32_t sizeOfShaderDataType(ShaderDataType dataType)
 {
     switch(dataType)

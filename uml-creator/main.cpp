@@ -12,8 +12,9 @@
 
 #include "Renderer/Shader.h"
 #include "Renderer/Buffer.h"
+#include "Renderer/VertexArray.h"
 
-std::string vertexShaderSource = R"(#version 300 es
+std::string vertexShaderSourceTriangle = R"(#version 300 es
                                  layout (location = 0) in vec2 aPos;
                                  layout (location = 1) in vec4 aColor;
                                  out vec4 vColor;
@@ -22,21 +23,36 @@ std::string vertexShaderSource = R"(#version 300 es
                                     vColor = aColor;
                                     gl_Position = vec4(aPos.x, aPos.y, 0.0, 1.0);
                                  })";
-std::string fragmentShaderSource = R"(#version 300 es
+std::string fragmentShaderSourceTriangle = R"(#version 300 es
                                    precision mediump float;
                                    out vec4 FragColor;
                                    in vec4 vColor;
                                    void main()
                                    {
-                                      //FragColor = vec4(0.0f, 0.8f, 0.8f, 1.0f);
                                         FragColor = vColor;
                                    })";
 
+std::string vertexShaderSourceSquare = R"(#version 300 es
+                                 layout (location = 0) in vec2 aPos;
+                                 void main()
+                                 {
+                                    gl_Position = vec4(aPos.x, aPos.y, 0.0, 1.0);
+                                 })";
+
+std::string fragmentShaderSourceSquare = R"(#version 300 es
+                                   precision mediump float;
+                                   out vec4 FragColor;
+                                   void main()
+                                   {
+                                        FragColor = vec4(0.0f, 0.0f, 1.0f, 0.0f);
+                                   })";
+
 GLFWwindow* window;
-std::unique_ptr<Shader> shader;
-std::unique_ptr<VertexBuffer> vertexBuffer;
-std::unique_ptr<IndexBuffer> indexBuffer;
-unsigned int vaoId, vboId;
+std::unique_ptr<Shader> shaderTriangle;
+std::unique_ptr<Shader> shaderSquare;
+
+std::unique_ptr<VertexArray> vertexArrayTriangle;
+std::unique_ptr<VertexArray> vertexArraySquare;
 
 // Render loop. Needs to be a separate function because of Emscripten
 void mainLoop()
@@ -45,9 +61,12 @@ void mainLoop()
     glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    shader->bind();
-    glBindVertexArray(vaoId);
-    glDrawElements(GL_TRIANGLES, indexBuffer->getCount(), GL_UNSIGNED_INT, nullptr);
+    shaderSquare->bind();
+    vertexArraySquare->bind();
+    glDrawElements(GL_TRIANGLES, vertexArraySquare->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, nullptr);
+    shaderTriangle->bind();
+    vertexArrayTriangle->bind();
+    glDrawElements(GL_TRIANGLES, vertexArrayTriangle->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, nullptr);
 
     /* Swap front and back buffers */
     glfwSwapBuffers(window);
@@ -86,48 +105,67 @@ int main() {
         return -1;
     }
 #endif
-    // Create vertex buffer
-    float vertices[18] = {
+    // Create triangle
+    float verticesTriangle[18] = {
             -0.5f, -0.5f,  1.0f, 0.0f, 0.0f, 1.0f,// left
             0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f,// right
             0.0f, 0.5f,   0.0f, 0.0f, 1.0f, 1.0f// top
     };
 
-    uint32_t indices[3] = { 0, 1, 2 };
+    uint32_t indicesTriangle[3] = { 0, 1, 2 };
 
-    shader.reset(new Shader(vertexShaderSource, fragmentShaderSource));
-    vertexBuffer.reset(VertexBuffer::create(vertices, sizeof(vertices)));
-    indexBuffer.reset(IndexBuffer::create(indices, sizeof(indices) / sizeof(uint32_t)));
+    std::shared_ptr<VertexBuffer> vertexBufferTriangle;
+    std::shared_ptr<IndexBuffer> indexBufferTriangle;
 
-    glGenVertexArrays(1, &vaoId);
+    shaderTriangle.reset(new Shader(vertexShaderSourceTriangle, fragmentShaderSourceTriangle));
+    vertexBufferTriangle.reset(VertexBuffer::create(verticesTriangle, sizeof(verticesTriangle)));
+    indexBufferTriangle.reset(IndexBuffer::create(indicesTriangle, sizeof(indicesTriangle) / sizeof(uint32_t)));
+    vertexArrayTriangle.reset(VertexArray::create());
 
-    glBindVertexArray(vaoId);
+    vertexArrayTriangle->bind();
 
-    vertexBuffer->bind();
-    indexBuffer->bind();
 
-    BufferLayout bufferLayout =
+    BufferLayout bufferLayoutTriangle =
             {
                     { ShaderDataType::Vec2, "aPosition" },
                     { ShaderDataType::Vec4, "aColor"}
             };
+    vertexBufferTriangle->setLayout(bufferLayoutTriangle);
+    vertexArrayTriangle->addVertexBuffer(vertexBufferTriangle);
+    vertexArrayTriangle->setIndexBuffer(indexBufferTriangle);
 
-    uint32_t index = 0;
-    for(const auto& element: bufferLayout)
-    {
-        glVertexAttribPointer(index,
-                              element.getComponentCount(),
-                              convertShaderDataTypeToGLBaseType(element.getDataType()),
-                              element.isNormalized() ? GL_TRUE : GL_FALSE,
-                              bufferLayout.getStride(),
-                              (void *) element.getOffset());
-        glEnableVertexAttribArray(index);
-        index++;
-    }
+    vertexBufferTriangle->unbind();
 
-    vertexBuffer->unbind();
+    float verticesSquare[24] = {
+            -0.7f, -0.7f, // left
+            -0.7f, 0.7f,  // right
+            0.7f, -0.7f,  // top
+            0.7f, 0.7f    // top
+    };
 
-    glBindVertexArray(0);
+    uint32_t indicesSquare[6] = { 0, 1, 2, 1, 2, 3 };
+
+    std::shared_ptr<VertexBuffer> vertexBufferSquare;
+    std::shared_ptr<IndexBuffer> indexBufferSquare;
+
+    shaderSquare.reset(new Shader(vertexShaderSourceSquare, fragmentShaderSourceSquare));
+    vertexBufferSquare.reset(VertexBuffer::create(verticesSquare, sizeof(verticesSquare)));
+    indexBufferSquare.reset(IndexBuffer::create(indicesSquare, sizeof(indicesSquare) / sizeof(uint32_t)));
+    vertexArraySquare.reset(VertexArray::create());
+
+    vertexArraySquare->bind();
+
+    BufferLayout bufferLayoutSquare =
+            {
+                    { ShaderDataType::Vec2, "aPosition" },
+            };
+    vertexBufferSquare->setLayout(bufferLayoutSquare);
+    vertexArraySquare->addVertexBuffer(vertexBufferSquare);
+    vertexArraySquare->setIndexBuffer(indexBufferSquare);
+
+    vertexBufferSquare->unbind();
+
+
 
 #ifdef __EMSCRIPTEN__
     emscripten_set_main_loop(mainLoop, 0, true);
