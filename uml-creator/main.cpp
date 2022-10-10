@@ -88,7 +88,7 @@ int main() {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     // Creating a window and ending program if creation failed
-    window = glfwCreateWindow(1280, 720, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(1280, 720, "Hello World", nullptr, nullptr);
 
     if (!window) {
         std::cerr << "Failed to initialize GLFW window" << std::endl;
