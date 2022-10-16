@@ -1,42 +1,4 @@
 #include "Application.h"
-std::string vertexShaderSourceTriangle = R"(#version 300 es
-                                 layout (location = 0) in vec2 aPos;
-                                 layout (location = 1) in vec4 aColor;
-                                 out vec4 vColor;
-                                 void main()
-                                 {
-                                    vColor = aColor;
-                                    gl_Position = vec4(aPos.x, aPos.y, 0.0, 1.0);
-                                 })";
-std::string fragmentShaderSourceTriangle = R"(#version 300 es
-                                   precision mediump float;
-                                   out vec4 FragColor;
-                                   in vec4 vColor;
-                                   void main()
-                                   {
-                                        FragColor = vColor;
-                                   })";
-
-std::string vertexShaderSourceSquare = R"(#version 300 es
-                                 layout (location = 0) in vec2 aPos;
-                                 void main()
-                                 {
-                                    gl_Position = vec4(aPos.x, aPos.y, 0.0, 1.0);
-                                 })";
-
-std::string fragmentShaderSourceSquare = R"(#version 300 es
-                                   precision mediump float;
-                                   out vec4 FragColor;
-                                   void main()
-                                   {
-                                        FragColor = vec4(0.0f, 0.0f, 1.0f, 0.0f);
-                                   })";
-
-std::unique_ptr<Shader> shaderTriangle;
-std::unique_ptr<Shader> shaderSquare;
-
-std::unique_ptr<VertexArray> vertexArrayTriangle;
-std::unique_ptr<VertexArray> vertexArraySquare;
 
 Application::Application()
 {
@@ -147,6 +109,7 @@ void Application::run()
 #endif
 }
 
+// EMSCRIPTEN requirement: main loop needs to be separate function
 void Application::runLoop()
 {
     /* Render here */
