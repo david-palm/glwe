@@ -2,6 +2,7 @@
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
+#include <emscripten/html5.h>
 #define GLFW_INCLUDE_ES3
 #include "GLFW/glfw3.h"
 #else
@@ -12,6 +13,7 @@
 #include "Renderer/Shader.h"
 #include "Renderer/Buffer.h"
 #include "Renderer/VertexArray.h"
+
 
 void mainLoop();
 
