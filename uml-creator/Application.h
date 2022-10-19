@@ -13,6 +13,7 @@
 #include "Renderer/Shader.h"
 #include "Renderer/Buffer.h"
 #include "Renderer/VertexArray.h"
+#include "Window.h"
 
 
 void mainLoop();
@@ -68,5 +69,5 @@ private:
 private:
     static Application* s_Instance;
     bool m_Running = false;
-    GLFWwindow* window;
+    std::unique_ptr<Window> m_Window;
 };

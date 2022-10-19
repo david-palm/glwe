@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.22)
 project(uml-creator)
-add_executable(uml-creator uml-creator/Platform/OpenGL/OpenGLBuffer.h uml-creator/Platform/OpenGL/OpenGLBuffer.cpp uml-creator/Platform/OpenGL/OpenGLVertexArray.cpp uml-creator/Platform/OpenGL/OpenGLVertexArray.h uml-creator/main.cpp uml-creator/Application.cpp uml-creator/Events/Event.h uml-creator/Events/KeyEvent.h uml-creator/Window.h)
+add_executable(uml-creator uml-creator/Platform/OpenGL/OpenGLBuffer.h uml-creator/Platform/OpenGL/OpenGLBuffer.cpp uml-creator/Platform/OpenGL/OpenGLVertexArray.cpp uml-creator/Platform/OpenGL/OpenGLVertexArray.h uml-creator/main.cpp uml-creator/Application.cpp uml-creator/Events/Event.h uml-creator/Events/KeyEvent.h uml-creator/Window.h uml-creator/Platform/Windows/WindowsWindow.h uml-creator/Platform/Windows/WindowsWindow.cpp)
 set(CMAKE_CXX_STANDARD 23)
 
 # Adding subdirectory for uml creator

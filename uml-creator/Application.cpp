@@ -56,16 +56,8 @@ Application::Application()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    // Creating a window and ending program if creation failed
-    window = glfwCreateWindow(1280, 720, "Hello World", nullptr, nullptr);
+    m_Window = std::unique_ptr<Window>(Window::create());
 
-    if (!window) {
-        std::cerr << "Failed to initialize GLFW window" << std::endl;
-        glfwTerminate();
-    }
-
-    // Setting current window as context
-    glfwMakeContextCurrent(window);
 #ifndef __EMSCRIPTEN__
     // Loading OpenGL ES2 pointers with glad and ending program if failing to do so
     if (!gladLoadGLES2Loader((GLADloadproc) glfwGetProcAddress)) {
@@ -132,6 +124,8 @@ Application::Application()
 
     vertexBufferSquare->unbind();
 
+    m_Running = true;
+
     run();
 
 }
@@ -146,7 +140,7 @@ void Application::run()
     emscripten_set_main_loop(mainLoop, 0, true);
 #else
     /* Loop until the user closes the window */
-    while (!glfwWindowShouldClose(window))
+    while (m_Running)
     {
         runLoop();
     }
@@ -168,9 +162,5 @@ void Application::runLoop()
     vertexArrayTriangle->bind();
     glDrawElements(GL_TRIANGLES, vertexArrayTriangle->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, nullptr);
 
-    /* Swap front and back buffers */
-    glfwSwapBuffers(window);
-
-    /* Poll for and process events */
-    glfwPollEvents();
+    m_Window->onUpdate();
 }
