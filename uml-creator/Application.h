@@ -14,6 +14,7 @@
 #include "Renderer/Buffer.h"
 #include "Renderer/VertexArray.h"
 #include "Window.h"
+#include "Events/WindowEvents.h"
 
 
 void mainLoop();
@@ -64,8 +65,11 @@ public:
     ~Application();
     static Application& get() { return *s_Instance; }
     void runLoop();
+
+    void onEvent(Event& event);
 private:
     void run();
+    bool onWindowClose(WindowCloseEvent& event);
 private:
     static Application* s_Instance;
     bool m_Running = false;

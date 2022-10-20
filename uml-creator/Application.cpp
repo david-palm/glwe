@@ -41,6 +41,8 @@ EM_BOOL key_callback(int eventType, const EmscriptenKeyboardEvent *e, void *user
 
 #endif
 
+#define BIND_EVENT_FUNCTION(x) std::bind(&Application::x, this, std::placeholders::_1)
+
 Application::Application()
 {
 #ifdef __EMSCRIPTEN__
@@ -57,6 +59,7 @@ Application::Application()
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     m_Window = std::unique_ptr<Window>(Window::create());
+    m_Window->setEventCallback(std::bind(&Application::onEvent, this, std::placeholders::_1));
 
 #ifndef __EMSCRIPTEN__
     // Loading OpenGL ES2 pointers with glad and ending program if failing to do so
@@ -163,4 +166,16 @@ void Application::runLoop()
     glDrawElements(GL_TRIANGLES, vertexArrayTriangle->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, nullptr);
 
     m_Window->onUpdate();
+}
+
+void Application::onEvent(Event& event)
+{
+    EventDispatcher dispatcher(event);
+    dispatcher.dispatch<WindowCloseEvent>(BIND_EVENT_FUNCTION(onWindowClose));
+}
+
+bool Application::onWindowClose(WindowCloseEvent& event)
+{
+    m_Running = false;
+    return true;
 }

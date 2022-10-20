@@ -1,5 +1,8 @@
 #include "WindowsWindow.h"
 
+#include "../../Events/WindowEvents.h"
+
+
 static bool s_GLFWInitialized = false;
 
 Window* Window::create(const WindowProperties& properties)
@@ -37,6 +40,25 @@ void WindowsWindow::init(const WindowProperties& properties)
     glfwMakeContextCurrent(m_Window);
     glfwSetWindowUserPointer(m_Window, &m_WindowData);
     setVSync(true);
+
+    //GLFW callbacks
+    glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
+    {
+        WindowData& windowData = *(WindowData*)glfwGetWindowUserPointer(window);
+        windowData.width = width;
+        windowData.height = height;
+
+        WindowResizeEvent event(width, height);
+        windowData.eventCallback(event);
+    });
+
+    glfwSetWindowCloseCallback(m_Window,[](GLFWwindow* window)
+    {
+        WindowData& windowData = *(WindowData*)glfwGetWindowUserPointer(window);
+
+        WindowCloseEvent event;
+        windowData.eventCallback(event);
+    });
 }
 
 void WindowsWindow::shutdown()
