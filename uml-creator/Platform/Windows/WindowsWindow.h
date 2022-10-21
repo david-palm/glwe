@@ -5,8 +5,9 @@
 #include <emscripten/html5.h>
 #define GLFW_INCLUDE_ES3
 #endif
-#include "GLFW/glfw3.h"
+#include<map>
 
+#include "GLFW/glfw3.h"
 
 #include "../../Window.h"
 
@@ -38,6 +39,5 @@ private:
     };
 
     WindowData m_WindowData;
-
 
 };

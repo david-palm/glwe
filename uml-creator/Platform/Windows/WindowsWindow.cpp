@@ -6,6 +6,12 @@
 
 static bool s_GLFWInitialized = false;
 
+#ifdef __EMSCRIPTEN__
+static std::map<std::string, int> keyCodesHtml;
+#else
+static std::map<int, int> keyCodesGlfw;
+#endif
+
 Window* Window::create(const WindowProperties& properties)
 {
     return new WindowsWindow(properties);
@@ -42,20 +48,94 @@ void WindowsWindow::init(const WindowProperties& properties)
     glfwSetWindowUserPointer(m_Window, &m_WindowData);
     setVSync(true);
 
+    // Setting up key code conversion maps
+#ifdef __EMSCRIPTEN__
+    keyCodesHtml.insert(std::make_pair("Tab", 9));
+    keyCodesHtml.insert(std::make_pair("Enter", 13));
+    keyCodesHtml.insert(std::make_pair("ShiftLeft", 16));
+    keyCodesHtml.insert(std::make_pair("ShiftRight", 16));
+    keyCodesHtml.insert(std::make_pair("ControlLeft", 17));
+    keyCodesHtml.insert(std::make_pair("ControlRight", 17));
+    keyCodesHtml.insert(std::make_pair("AltLeft", 18));
+    keyCodesHtml.insert(std::make_pair("AltRight", 18));
+    keyCodesHtml.insert(std::make_pair("Escape", 27));
+    keyCodesHtml.insert(std::make_pair("Space", 32));
+
+    keyCodesHtml.insert(std::make_pair("ArrowLeft", 37));
+    keyCodesHtml.insert(std::make_pair("ArrowUp", 38));
+    keyCodesHtml.insert(std::make_pair("ArrowRight", 39));
+    keyCodesHtml.insert(std::make_pair("ArrowDown", 40));
+
+    keyCodesHtml.insert(std::make_pair("Digit0", 48));
+    keyCodesHtml.insert(std::make_pair("Digit1", 49));
+    keyCodesHtml.insert(std::make_pair("Digit2", 50));
+    keyCodesHtml.insert(std::make_pair("Digit3", 51));
+    keyCodesHtml.insert(std::make_pair("Digit4", 52));
+    keyCodesHtml.insert(std::make_pair("Digit5", 53));
+    keyCodesHtml.insert(std::make_pair("Digit6", 54));
+    keyCodesHtml.insert(std::make_pair("Digit7", 55));
+    keyCodesHtml.insert(std::make_pair("Digit8", 56));
+    keyCodesHtml.insert(std::make_pair("Digit9", 57));
+
+    keyCodesHtml.insert(std::make_pair("KeyA", 65));
+    keyCodesHtml.insert(std::make_pair("KeyB", 66));
+    keyCodesHtml.insert(std::make_pair("KeyC", 67));
+    keyCodesHtml.insert(std::make_pair("KeyD", 68));
+    keyCodesHtml.insert(std::make_pair("KeyE", 69));
+    keyCodesHtml.insert(std::make_pair("KeyF", 70));
+    keyCodesHtml.insert(std::make_pair("KeyG", 71));
+    keyCodesHtml.insert(std::make_pair("KeyH", 72));
+    keyCodesHtml.insert(std::make_pair("KeyI", 73));
+    keyCodesHtml.insert(std::make_pair("KeyJ", 74));
+    keyCodesHtml.insert(std::make_pair("KeyK", 75));
+    keyCodesHtml.insert(std::make_pair("KeyL", 76));
+    keyCodesHtml.insert(std::make_pair("KeyM", 77));
+    keyCodesHtml.insert(std::make_pair("KeyN", 78));
+    keyCodesHtml.insert(std::make_pair("KeyO", 79));
+    keyCodesHtml.insert(std::make_pair("KeyP", 80));
+    keyCodesHtml.insert(std::make_pair("KeyQ", 81));
+    keyCodesHtml.insert(std::make_pair("KeyR", 82));
+    keyCodesHtml.insert(std::make_pair("KeyS", 83));
+    keyCodesHtml.insert(std::make_pair("KeyT", 84));
+    keyCodesHtml.insert(std::make_pair("KeyU", 85));
+    keyCodesHtml.insert(std::make_pair("KeyV", 86));
+    keyCodesHtml.insert(std::make_pair("KeyW", 87));
+    keyCodesHtml.insert(std::make_pair("KeyX", 88));
+    keyCodesHtml.insert(std::make_pair("KeyY", 89));
+    keyCodesHtml.insert(std::make_pair("KeyZ", 90));
+
+    keyCodesHtml.insert(std::make_pair("Numpad0", 96));
+    keyCodesHtml.insert(std::make_pair("Numpad1", 97));
+    keyCodesHtml.insert(std::make_pair("Numpad2", 98));
+    keyCodesHtml.insert(std::make_pair("Numpad3", 99));
+    keyCodesHtml.insert(std::make_pair("Numpad4", 100));
+    keyCodesHtml.insert(std::make_pair("Numpad5", 101));
+    keyCodesHtml.insert(std::make_pair("Numpad6", 102));
+    keyCodesHtml.insert(std::make_pair("Numpad7", 103));
+    keyCodesHtml.insert(std::make_pair("Numpad8", 104));
+    keyCodesHtml.insert(std::make_pair("Numpad9", 105));
+    keyCodesHtml.insert(std::make_pair("NumpadAdd", 107));
+
+    keyCodesHtml.insert(std::make_pair("Comma", 188));
+    keyCodesHtml.insert(std::make_pair("Minus", 189));
+    keyCodesHtml.insert(std::make_pair("Period", 190));
+#else
+
+#endif
 
     // Setting callbacks
 #ifdef __EMSCRIPTEN__
     //EMSCRIPTEN callbacks
     EMSCRIPTEN_RESULT ret = emscripten_set_keydown_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, &m_WindowData, 1, [](int eventType, const EmscriptenKeyboardEvent *e, void *userData)
     {
-        const char *keyA = "KeyA";
-        if(std::strcmp(e->code, keyA) == 0)
-        {
-            WindowData& windowData = *(WindowData*)userData;
+        std::string keyCode(e->code);
+        std::cout << keyCode;
 
-            KeyDownEvent event(65, 0);
-            windowData.eventCallback(event);
-        }
+        WindowData& windowData = *(WindowData*)userData;
+
+        KeyDownEvent event(65, 0);
+        windowData.eventCallback(event);
+
         return 0;
     });
     ret = emscripten_set_keyup_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, &m_WindowData, 1, [](int eventType, const EmscriptenKeyboardEvent *e, void *userData)
@@ -70,8 +150,6 @@ void WindowsWindow::init(const WindowProperties& properties)
         }
         return 0;
     });
-
-
 #else
     //GLFW callbacks
     glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
@@ -99,6 +177,7 @@ void WindowsWindow::init(const WindowProperties& properties)
         {
             case GLFW_PRESS:
             {
+                std::cout<<glfwGetKeyName(keyCode, scanCode);
                 KeyDownEvent event(keyCode, 0);
                 windowData.eventCallback(event);
                 break;
@@ -145,4 +224,31 @@ bool WindowsWindow::isVSync() const
 {
     return m_WindowData.vSync;
 }
+
+// Key code conversion functions
+#ifdef __EMSCRIPTEN__
+static int convertHtmlKeyCode(std::string keyCode)
+{
+    for(auto const& [htmlKeyCode, windowsKeyCode] : keyCodesHtml)
+    {
+        if(htmlKeyCode == keyCode)
+        {
+            return windowsKeyCode;
+        }
+    }
+    return -1;
+}
+#else
+static int convertGlfwKeyCode(int keyCode)
+{
+    for(auto const& [glfwKeyCode, windowsKeyCode] : keyCodesGlfw)
+    {
+        if(glfwKeyCode == keyCode)
+        {
+            return windowsKeyCode;
+        }
+    }
+    return -1;
+}
+#endif
 
