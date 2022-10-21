@@ -33,7 +33,7 @@ public:
         return stringStream.str();
     }
 
-    EVENT_CLASS_TYPE(KeyPress)
+    EVENT_CLASS_TYPE(KeyDown)
 private:
     bool m_Repeated;
 };

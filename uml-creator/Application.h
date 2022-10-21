@@ -82,6 +82,7 @@ public:
 private:
     void run();
     bool onWindowClose(WindowCloseEvent& event);
+    bool onWindowResize(WindowResizeEvent& event);
     bool onKeyDown(KeyDownEvent& event);
     bool onKeyUp(KeyUpEvent& event);
 private:

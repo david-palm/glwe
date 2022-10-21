@@ -132,16 +132,25 @@ void Application::onEvent(Event& event)
 {
     EventDispatcher dispatcher(event);
     dispatcher.dispatch<WindowCloseEvent>(BIND_EVENT_FUNCTION(onWindowClose));
+    dispatcher.dispatch<WindowResizeEvent>(BIND_EVENT_FUNCTION(onWindowResize));
     dispatcher.dispatch<KeyDownEvent>(BIND_EVENT_FUNCTION(onKeyDown));
     dispatcher.dispatch<KeyUpEvent>(BIND_EVENT_FUNCTION(onKeyUp));
 }
 
+#ifndef __EMSCRIPTEN__
 bool Application::onWindowClose(WindowCloseEvent& event)
 {
     m_Running = false;
-    std::cout << "Closed Window";
+    std::cout << "Closed window" << std::endl;
     return true;
 }
+
+bool Application::onWindowResize(WindowResizeEvent& event)
+{
+    std::cout << "Resized window: " << event.getWidth() << ", " << event.getHeight() << std::endl;
+    return true;
+}
+#endif
 
 bool Application::onKeyDown(KeyDownEvent& event)
 {
