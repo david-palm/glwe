@@ -162,7 +162,6 @@ void WindowsWindow::init(const WindowProperties& properties)
     {
         std::string keyCodeHtml(e->code);
         int keyCode = convertHtmlKeyCode(keyCodeHtml);
-        //std::cout << keyCode;
 
         WindowData& windowData = *(WindowData*)userData;
 
@@ -173,14 +172,13 @@ void WindowsWindow::init(const WindowProperties& properties)
     });
     ret = emscripten_set_keyup_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, &m_WindowData, 1, [](int eventType, const EmscriptenKeyboardEvent *e, void *userData)
     {
-        const char *keyA = "KeyA";
-        if(std::strcmp(e->code, keyA) == 0)
-        {
-            WindowData& windowData = *(WindowData*)userData;
+        std::string keyCodeHtml(e->code);
+        int keyCode = convertHtmlKeyCode(keyCodeHtml);
 
-            KeyUpEvent event(65);
-            windowData.eventCallback(event);
-        }
+        WindowData& windowData = *(WindowData*)userData;
+
+        KeyUpEvent event(keyCode);
+        windowData.eventCallback(event);
         return 0;
     });
 #else
