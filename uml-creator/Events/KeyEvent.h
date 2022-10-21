@@ -18,14 +18,11 @@ protected:
 
 };
 
-class KeyDownEvent: public KeyEvent
+class KeyDownEvent : public KeyEvent
 {
 public:
     KeyDownEvent(int keyCode, bool repeated)
-        : KeyEvent(keyCode), m_Repeated(repeated)
-    {
-
-    }
+        : KeyEvent(keyCode), m_Repeated(repeated) {}
     inline bool getKeyRepeated(){ return m_Repeated; }
 
     std::string toString() const override
@@ -38,4 +35,20 @@ public:
     EVENT_CLASS_TYPE(KeyPress)
 private:
     bool m_Repeated;
+};
+
+class KeyUpEvent : public KeyEvent
+{
+public:
+    KeyUpEvent(int keyCode)
+        : KeyEvent(keyCode) {}
+
+    std::string toString() const override
+    {
+        std::stringstream stringStream;
+        stringStream << "KeyRelease Event: " << m_KeyCode;
+        return stringStream.str();
+    }
+
+    EVENT_CLASS_TYPE(KeyUp)
 };

@@ -1,7 +1,14 @@
 #pragma once
 
-#include "../../Window.h"
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#include <emscripten/html5.h>
+#define GLFW_INCLUDE_ES3
+#else
 #include "GLFW/glfw3.h"
+#endif
+
+#include "../../Window.h"
 
 class WindowsWindow : public Window
 {

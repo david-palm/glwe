@@ -1,6 +1,7 @@
 #include "WindowsWindow.h"
 
 #include "../../Events/WindowEvents.h"
+#include "../../Events/KeyEvent.h"
 
 
 static bool s_GLFWInitialized = false;
@@ -41,6 +42,12 @@ void WindowsWindow::init(const WindowProperties& properties)
     glfwSetWindowUserPointer(m_Window, &m_WindowData);
     setVSync(true);
 
+
+    // Setting callbacks
+#ifdef __EMSCRIPTEN__
+    //EMSCRIPTEN callbacks
+
+#else
     //GLFW callbacks
     glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
     {
@@ -59,6 +66,28 @@ void WindowsWindow::init(const WindowProperties& properties)
         WindowCloseEvent event;
         windowData.eventCallback(event);
     });
+
+    glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int keyCode, int scanCode, int action, int mods)
+    {
+        WindowData& windowData = *(WindowData*)glfwGetWindowUserPointer(window);
+        switch(action)
+        {
+            case GLFW_PRESS:
+            {
+                KeyDownEvent event(keyCode, 0);
+                windowData.eventCallback(event);
+                break;
+            }
+
+            case GLFW_RELEASE:
+            {
+                KeyUpEvent event(keyCode);
+                windowData.eventCallback(event);
+                break;
+            }
+        }
+    });
+#endif
 }
 
 void WindowsWindow::shutdown()

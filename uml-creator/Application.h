@@ -13,8 +13,12 @@
 #include "Renderer/Shader.h"
 #include "Renderer/Buffer.h"
 #include "Renderer/VertexArray.h"
+
 #include "Window.h"
+
 #include "Events/WindowEvents.h"
+#include "Events/KeyEvent.h"
+
 
 
 void mainLoop();
@@ -52,6 +56,14 @@ static std::string fragmentShaderSourceSquare = R"(#version 300 es
                                         FragColor = vec4(0.0f, 0.0f, 1.0f, 0.0f);
                                    })";
 
+static std::string fragmentShaderSourceSquare_2 = R"(#version 300 es
+                                   precision mediump float;
+                                   out vec4 FragColor;
+                                   void main()
+                                   {
+                                        FragColor = vec4(1.0f, 1.0f, 1.0f, 0.0f);
+                                   })";
+
 
 static std::unique_ptr<Shader> shaderTriangle;
 static std::unique_ptr<Shader> shaderSquare;
@@ -70,6 +82,8 @@ public:
 private:
     void run();
     bool onWindowClose(WindowCloseEvent& event);
+    bool onKeyDown(KeyDownEvent& event);
+    bool onKeyUp(KeyUpEvent& event);
 private:
     static Application* s_Instance;
     bool m_Running = false;

@@ -172,10 +172,25 @@ void Application::onEvent(Event& event)
 {
     EventDispatcher dispatcher(event);
     dispatcher.dispatch<WindowCloseEvent>(BIND_EVENT_FUNCTION(onWindowClose));
+    dispatcher.dispatch<KeyDownEvent>(BIND_EVENT_FUNCTION(onKeyDown));
+    dispatcher.dispatch<KeyUpEvent>(BIND_EVENT_FUNCTION(onKeyUp));
 }
 
 bool Application::onWindowClose(WindowCloseEvent& event)
 {
     m_Running = false;
+    std::cout << "Closed Window";
+    return true;
+}
+
+bool Application::onKeyDown(KeyDownEvent& event)
+{
+    std::cout << event.toString() << std::endl;
+    return true;
+}
+
+bool Application::onKeyUp(KeyUpEvent& event)
+{
+    std::cout << event.toString() << std::endl;
     return true;
 }
