@@ -41,3 +41,8 @@ private:
     WindowData m_WindowData;
 
 };
+#ifdef __EMSCRIPTEN__
+static int convertHtmlKeyCode(std::string keyCode);
+#else
+static int convertGlfwKeyCode(int keyCode);
+#endif
