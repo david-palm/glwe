@@ -165,7 +165,7 @@ void WindowsWindow::init(const WindowProperties& properties)
 
         WindowData& windowData = *(WindowData*)userData;
 
-        KeyDownEvent event(keyCode, 0);
+        KeyDownEvent event(keyCode, e->repeat);
         windowData.eventCallback(event);
 
         return 0;
@@ -220,6 +220,11 @@ void WindowsWindow::init(const WindowProperties& properties)
                 windowData.eventCallback(event);
                 break;
             }
+
+            case GLFW_REPEAT:
+                KeyDownEvent event(keyCode, 1);
+                windowData.eventCallback(event);
+                break;
         }
     });
 #endif
