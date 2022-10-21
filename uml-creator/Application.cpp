@@ -122,7 +122,7 @@ void Application::runLoop()
     shaderTriangle->bind();
     vertexArrayTriangle->bind();
     glDrawElements(GL_TRIANGLES, vertexArrayTriangle->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, nullptr);
-    
+
 #ifndef __EMSCRIPTEN__
     m_Window->onUpdate();
 #endif

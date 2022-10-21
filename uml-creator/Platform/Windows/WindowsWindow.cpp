@@ -46,14 +46,28 @@ void WindowsWindow::init(const WindowProperties& properties)
     // Setting callbacks
 #ifdef __EMSCRIPTEN__
     //EMSCRIPTEN callbacks
-    EMSCRIPTEN_RESULT ret = emscripten_set_keydown_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, 0, 1, [](int eventType, const EmscriptenKeyboardEvent *e, void *userData)
+    EMSCRIPTEN_RESULT ret = emscripten_set_keydown_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, &m_WindowData, 1, [](int eventType, const EmscriptenKeyboardEvent *e, void *userData)
     {
-        std::cout << "Callback test: " << eventType << std::endl;
+        const char *keyA = "KeyA";
+        if(std::strcmp(e->code, keyA) == 0)
+        {
+            WindowData& windowData = *(WindowData*)userData;
+
+            KeyDownEvent event(65, 0);
+            windowData.eventCallback(event);
+        }
         return 0;
     });
-    ret = emscripten_set_keyup_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, 0, 1, [](int eventType, const EmscriptenKeyboardEvent *e, void *userData)
+    ret = emscripten_set_keyup_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, &m_WindowData, 1, [](int eventType, const EmscriptenKeyboardEvent *e, void *userData)
     {
-        std::cout << "Callback test: " << eventType << std::endl;
+        const char *keyA = "KeyA";
+        if(std::strcmp(e->code, keyA) == 0)
+        {
+            WindowData& windowData = *(WindowData*)userData;
+
+            KeyUpEvent event(65);
+            windowData.eventCallback(event);
+        }
         return 0;
     });
 
