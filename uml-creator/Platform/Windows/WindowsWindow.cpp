@@ -46,6 +46,17 @@ void WindowsWindow::init(const WindowProperties& properties)
     // Setting callbacks
 #ifdef __EMSCRIPTEN__
     //EMSCRIPTEN callbacks
+    EMSCRIPTEN_RESULT ret = emscripten_set_keydown_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, 0, 1, [](int eventType, const EmscriptenKeyboardEvent *e, void *userData)
+    {
+        std::cout << "Callback test: " << eventType << std::endl;
+        return 0;
+    });
+    ret = emscripten_set_keyup_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, 0, 1, [](int eventType, const EmscriptenKeyboardEvent *e, void *userData)
+    {
+        std::cout << "Callback test: " << eventType << std::endl;
+        return 0;
+    });
+
 
 #else
     //GLFW callbacks
@@ -97,8 +108,10 @@ void WindowsWindow::shutdown()
 
 void WindowsWindow::onUpdate()
 {
+#ifndef __EMSCRIPTEN__
     glfwPollEvents();
     glfwSwapBuffers(m_Window);
+#endif
 }
 
 void WindowsWindow::setVSync(bool enabled)

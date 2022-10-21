@@ -4,9 +4,9 @@
 #include <emscripten.h>
 #include <emscripten/html5.h>
 #define GLFW_INCLUDE_ES3
-#else
-#include "GLFW/glfw3.h"
 #endif
+#include "GLFW/glfw3.h"
+
 
 #include "../../Window.h"
 

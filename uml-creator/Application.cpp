@@ -1,54 +1,10 @@
 #include "Application.h"
 
 
-#ifdef __EMSCRIPTEN__
-
-static inline const char *emscripten_event_type_to_string(int eventType) {
-    const char *events[] = { "(invalid)", "(none)", "keypress", "keydown", "keyup", "click", "mousedown", "mouseup", "dblclick", "mousemove", "wheel", "resize",
-                             "scroll", "blur", "focus", "focusin", "focusout", "deviceorientation", "devicemotion", "orientationchange", "fullscreenchange", "pointerlockchange",
-                             "visibilitychange", "touchstart", "touchend", "touchmove", "touchcancel", "gamepadconnected", "gamepaddisconnected", "beforeunload",
-                             "batterychargingchange", "batterylevelchange", "webglcontextlost", "webglcontextrestored", "mouseenter", "mouseleave", "mouseover", "mouseout", "(invalid)" };
-    ++eventType;
-    if (eventType < 0) eventType = 0;
-    if (eventType >= sizeof(events)/sizeof(events[0])) eventType = sizeof(events)/sizeof(events[0])-1;
-    return events[eventType];
-}
-
-const char *emscripten_result_to_string(EMSCRIPTEN_RESULT result) {
-  if (result == EMSCRIPTEN_RESULT_SUCCESS) return "EMSCRIPTEN_RESULT_SUCCESS";
-  if (result == EMSCRIPTEN_RESULT_DEFERRED) return "EMSCRIPTEN_RESULT_DEFERRED";
-  if (result == EMSCRIPTEN_RESULT_NOT_SUPPORTED) return "EMSCRIPTEN_RESULT_NOT_SUPPORTED";
-  if (result == EMSCRIPTEN_RESULT_FAILED_NOT_DEFERRED) return "EMSCRIPTEN_RESULT_FAILED_NOT_DEFERRED";
-  if (result == EMSCRIPTEN_RESULT_INVALID_TARGET) return "EMSCRIPTEN_RESULT_INVALID_TARGET";
-  if (result == EMSCRIPTEN_RESULT_UNKNOWN_TARGET) return "EMSCRIPTEN_RESULT_UNKNOWN_TARGET";
-  if (result == EMSCRIPTEN_RESULT_INVALID_PARAM) return "EMSCRIPTEN_RESULT_INVALID_PARAM";
-  if (result == EMSCRIPTEN_RESULT_FAILED) return "EMSCRIPTEN_RESULT_FAILED";
-  if (result == EMSCRIPTEN_RESULT_NO_DATA) return "EMSCRIPTEN_RESULT_NO_DATA";
-  return "Unknown EMSCRIPTEN_RESULT!";
-}
-
-#define TEST_RESULT(x) if (ret != EMSCRIPTEN_RESULT_SUCCESS) printf("%s returned %s.\n", #x, emscripten_result_to_string(ret));
-
-EM_BOOL key_callback(int eventType, const EmscriptenKeyboardEvent *e, void *userData)
-{
-    printf("%s, key: \"%s\", code: \"%s\", location: %lu,%s%s%s%s repeat: %d, locale: \"%s\", char: \"%s\", charCode: %lu, keyCode: %lu, which: %lu, timestamp: %lf\n",
-           emscripten_event_type_to_string(eventType), e->key, e->code, e->location,
-           e->ctrlKey ? " CTRL" : " NCTRL", e->shiftKey ? " SHIFT" : " NSHIFT", e->altKey ? " ALT" : " NALT", e->metaKey ? " META" : " NMETA",
-           e->repeat, e->locale, e->charValue, e->charCode, e->keyCode, e->which,
-           e->timestamp);
-    return 0;
-}
-
-#endif
-
 #define BIND_EVENT_FUNCTION(x) std::bind(&Application::x, this, std::placeholders::_1)
 
 Application::Application()
 {
-#ifdef __EMSCRIPTEN__
-    // Key callback test
-    EMSCRIPTEN_RESULT ret = emscripten_set_keydown_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, 0, 1, key_callback);
-#endif
     // Initialize glfw and end program if problem occurred
     if (!glfwInit()) {
         std::cerr << "Failed to initialize GLFW" << std::endl;
@@ -66,6 +22,8 @@ Application::Application()
     if (!gladLoadGLES2Loader((GLADloadproc) glfwGetProcAddress)) {
         std::cerr << "Failed to initialize GLAD" << std::endl;
     }
+#else
+    std::cout << "Start Test" << std::endl;
 #endif
     // Create triangle
     float verticesTriangle[18] = {
@@ -164,8 +122,10 @@ void Application::runLoop()
     shaderTriangle->bind();
     vertexArrayTriangle->bind();
     glDrawElements(GL_TRIANGLES, vertexArrayTriangle->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, nullptr);
-
+    
+#ifndef __EMSCRIPTEN__
     m_Window->onUpdate();
+#endif
 }
 
 void Application::onEvent(Event& event)
