@@ -159,7 +159,7 @@ void WindowsWindow::init(const WindowProperties& properties)
     // Setting callbacks
 #ifdef __EMSCRIPTEN__
     //EMSCRIPTEN callbacks
-    EMSCRIPTEN_RESULT ret = emscripten_set_keydown_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, &m_WindowData, 1, [](int eventType, const EmscriptenKeyboardEvent *e, void *userData)
+    EMSCRIPTEN_RESULT ret = emscripten_set_keydown_callback(EMSCRIPTEN_EVENT_TARGET_DOCUMENT, &m_WindowData, 1, [](int eventType, const EmscriptenKeyboardEvent *e, void *userData)
     {
         std::string keyCodeHtml(e->code);
         int keyCode = convertHtmlKeyCode(keyCodeHtml);
@@ -171,7 +171,7 @@ void WindowsWindow::init(const WindowProperties& properties)
 
         return 0;
     });
-    ret = emscripten_set_keyup_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, &m_WindowData, 1, [](int eventType, const EmscriptenKeyboardEvent *e, void *userData)
+    ret = emscripten_set_keyup_callback(EMSCRIPTEN_EVENT_TARGET_DOCUMENT, &m_WindowData, 1, [](int eventType, const EmscriptenKeyboardEvent *e, void *userData)
     {
         std::string keyCodeHtml(e->code);
         int keyCode = convertHtmlKeyCode(keyCodeHtml);
@@ -183,7 +183,7 @@ void WindowsWindow::init(const WindowProperties& properties)
         return 0;
     });
 
-    ret = emscripten_set_mousedown_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, &m_WindowData, 1, [](int eventType, const EmscriptenMouseEvent *e, void *userData)
+    ret = emscripten_set_mousedown_callback("#canvas", &m_WindowData, 1, [](int eventType, const EmscriptenMouseEvent *e, void *userData)
     {
         WindowData& windowData = *(WindowData*)userData;
 
@@ -191,7 +191,7 @@ void WindowsWindow::init(const WindowProperties& properties)
         windowData.eventCallback(event);
         return 0;
     });
-    ret = emscripten_set_mouseup_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, &m_WindowData, 1, [](int eventType, const EmscriptenMouseEvent *e, void *userData)
+    ret = emscripten_set_mouseup_callback("#canvas", &m_WindowData, 1, [](int eventType, const EmscriptenMouseEvent *e, void *userData)
     {
         WindowData& windowData = *(WindowData*)userData;
 
