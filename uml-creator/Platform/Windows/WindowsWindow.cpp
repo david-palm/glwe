@@ -265,6 +265,10 @@ void WindowsWindow::init(const WindowProperties& properties)
             {
                 WindowData& windowData = *(WindowData*)glfwGetWindowUserPointer(window);
 
+                // Translate GLFW mouse button code
+                button = (button == GLFW_MOUSE_BUTTON_MIDDLE) ? 1 : button;
+                button = (button == GLFW_MOUSE_BUTTON_RIGHT) ? 2 : button;
+
                 MouseDownEvent event(button);
                 windowData.eventCallback(event);
                 break;
@@ -273,6 +277,10 @@ void WindowsWindow::init(const WindowProperties& properties)
             case GLFW_RELEASE:
             {
                 WindowData& windowData = *(WindowData*)glfwGetWindowUserPointer(window);
+
+                // Translate GLFW mouse button code
+                button = (button == GLFW_MOUSE_BUTTON_MIDDLE) ? 1 : button;
+                button = (button == GLFW_MOUSE_BUTTON_RIGHT) ? 2 : button;
 
                 MouseUpEvent event(button);
                 windowData.eventCallback(event);
