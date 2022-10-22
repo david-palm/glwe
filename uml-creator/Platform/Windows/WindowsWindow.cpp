@@ -182,6 +182,31 @@ void WindowsWindow::init(const WindowProperties& properties)
         windowData.eventCallback(event);
         return 0;
     });
+
+    ret = emscripten_set_mousedown_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, &m_WindowData, 1, [](int eventType, const EmscriptenMouseEvent *e, void *userData)
+    {
+        WindowData& windowData = *(WindowData*)userData;
+
+        MouseDownEvent event(e->button);
+        windowData.eventCallback(event);
+        return 0;
+    });
+    ret = emscripten_set_mouseup_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, &m_WindowData, 1, [](int eventType, const EmscriptenMouseEvent *e, void *userData)
+    {
+        WindowData& windowData = *(WindowData*)userData;
+
+        MouseUpEvent event(e->button);
+        windowData.eventCallback(event);
+        return 0;
+    });
+    ret = emscripten_set_mousemove_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, &m_WindowData, 1, [](int eventType, const EmscriptenMouseEvent *e, void *userData)
+    {
+        WindowData& windowData = *(WindowData*)userData;
+
+        MouseMoveEvent event(e->targetX, e->targetY);
+        windowData.eventCallback(event);
+        return 0;
+    });
 #else
     //GLFW callbacks
     glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
