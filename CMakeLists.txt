@@ -11,7 +11,13 @@ add_executable(uml-creator
         uml-creator/Events/KeyEvent.h
         uml-creator/Window.h 
         uml-creator/Platform/Windows/WindowsWindow.h
-        uml-creator/Platform/Windows/WindowsWindow.cpp uml-creator/Events/WindowEvent.h uml-creator/Events/MouseEvent.h uml-creator/Layer.h uml-creator/Layer.cpp uml-creator/LayerStack.h uml-creator/LayerStack.cpp)
+        uml-creator/Platform/Windows/WindowsWindow.cpp
+        uml-creator/Events/WindowEvent.h
+        uml-creator/Events/MouseEvent.h
+        uml-creator/Layer.h
+        uml-creator/Layer.cpp
+        uml-creator/LayerStack.h
+        uml-creator/LayerStack.cpp)
 set(CMAKE_CXX_STANDARD 23)
 
 # Adding subdirectory for uml creator
@@ -25,12 +31,15 @@ else()
     # Adding subdirectories for vendor libraries
     add_subdirectory(vendor/glfw)
     add_subdirectory(vendor/glad)
+    add_subdirectory(vendor/imgui)
 
     # Linking libraries to main uml-creator project
     target_link_libraries(uml-creator glfw)
     target_link_libraries(uml-creator glad)
+    target_link_libraries(uml-creator imgui)
 
     # Adding include directories of libraries to main uml-creator project
     target_include_directories(uml-creator PUBLIC /vendor/glfw/include)
     target_include_directories(uml-creator PUBLIC /vendor/glad/include)
+    target_include_directories(uml-creator PUBLIC /vendor/imgui)
 endif()
