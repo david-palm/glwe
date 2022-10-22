@@ -131,10 +131,16 @@ void Application::runLoop()
 void Application::onEvent(Event& event)
 {
     EventDispatcher dispatcher(event);
+#ifndef __EMSCRIPTEN__
     dispatcher.dispatch<WindowCloseEvent>(BIND_EVENT_FUNCTION(onWindowClose));
     dispatcher.dispatch<WindowResizeEvent>(BIND_EVENT_FUNCTION(onWindowResize));
+#endif
     dispatcher.dispatch<KeyDownEvent>(BIND_EVENT_FUNCTION(onKeyDown));
     dispatcher.dispatch<KeyUpEvent>(BIND_EVENT_FUNCTION(onKeyUp));
+
+    dispatcher.dispatch<MouseDownEvent>(BIND_EVENT_FUNCTION(onMouseDown));
+    dispatcher.dispatch<MouseUpEvent>(BIND_EVENT_FUNCTION(onMouseUp));
+    dispatcher.dispatch<MouseMoveEvent>(BIND_EVENT_FUNCTION(onMouseMove));
 }
 
 #ifndef __EMSCRIPTEN__
@@ -144,7 +150,6 @@ bool Application::onWindowClose(WindowCloseEvent& event)
     std::cout << "Closed window" << std::endl;
     return true;
 }
-
 bool Application::onWindowResize(WindowResizeEvent& event)
 {
     std::cout << "Resized window: " << event.getWidth() << ", " << event.getHeight() << std::endl;
@@ -157,8 +162,23 @@ bool Application::onKeyDown(KeyDownEvent& event)
     std::cout << event.toString() << std::endl;
     return true;
 }
-
 bool Application::onKeyUp(KeyUpEvent& event)
+{
+    std::cout << event.toString() << std::endl;
+    return true;
+}
+
+bool Application::onMouseDown(MouseDownEvent& event)
+{
+    std::cout << event.toString() << std::endl;
+    return true;
+}
+bool Application::onMouseUp(MouseUpEvent& event)
+{
+    std::cout << event.toString() << std::endl;
+    return true;
+}
+bool Application::onMouseMove(MouseMoveEvent& event)
 {
     std::cout << event.toString() << std::endl;
     return true;

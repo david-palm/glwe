@@ -11,7 +11,7 @@ add_executable(uml-creator
         uml-creator/Events/KeyEvent.h
         uml-creator/Window.h 
         uml-creator/Platform/Windows/WindowsWindow.h
-        uml-creator/Platform/Windows/WindowsWindow.cpp uml-creator/Events/WindowEvents.h)
+        uml-creator/Platform/Windows/WindowsWindow.cpp uml-creator/Events/WindowEvent.h uml-creator/Events/MouseEvent.h)
 set(CMAKE_CXX_STANDARD 23)
 
 # Adding subdirectory for uml creator

@@ -1,7 +1,8 @@
 #include "WindowsWindow.h"
 
-#include "../../Events/WindowEvents.h"
+#include "../../Events/WindowEvent.h"
 #include "../../Events/KeyEvent.h"
+#include "../../Events/MouseEvent.h"
 
 
 static bool s_GLFWInitialized = false;
@@ -226,6 +227,37 @@ void WindowsWindow::init(const WindowProperties& properties)
                 windowData.eventCallback(event);
                 break;
         }
+    });
+
+    glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods)
+    {
+        switch(action)
+        {
+            case GLFW_PRESS:
+            {
+                WindowData& windowData = *(WindowData*)glfwGetWindowUserPointer(window);
+
+                MouseDownEvent event(button);
+                windowData.eventCallback(event);
+                break;
+            }
+
+            case GLFW_RELEASE:
+            {
+                WindowData& windowData = *(WindowData*)glfwGetWindowUserPointer(window);
+
+                MouseUpEvent event(button);
+                windowData.eventCallback(event);
+                break;
+            }
+        }
+    });
+
+    glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double x, double y) {
+        WindowData& windowData = *(WindowData*)glfwGetWindowUserPointer(window);
+
+        MouseMoveEvent event(x, y);
+        windowData.eventCallback(event);
     });
 #endif
 }

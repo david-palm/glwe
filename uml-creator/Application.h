@@ -16,8 +16,9 @@
 
 #include "Window.h"
 
-#include "Events/WindowEvents.h"
+#include "Events/WindowEvent.h"
 #include "Events/KeyEvent.h"
+#include "Events/MouseEvent.h"
 
 
 
@@ -81,10 +82,16 @@ public:
     void onEvent(Event& event);
 private:
     void run();
+#ifndef __EMSCRIPTEN__
     bool onWindowClose(WindowCloseEvent& event);
     bool onWindowResize(WindowResizeEvent& event);
+#endif
     bool onKeyDown(KeyDownEvent& event);
     bool onKeyUp(KeyUpEvent& event);
+
+    bool onMouseDown(MouseDownEvent& event);
+    bool onMouseUp(MouseUpEvent& event);
+    bool onMouseMove(MouseMoveEvent& event);
 private:
     static Application* s_Instance;
     bool m_Running = false;
