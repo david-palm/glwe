@@ -15,6 +15,8 @@
 #include "Renderer/VertexArray.h"
 
 #include "Window.h"
+#include "Layer.h"
+#include "LayerStack.h"
 
 #include "Events/WindowEvent.h"
 #include "Events/KeyEvent.h"
@@ -92,8 +94,12 @@ private:
     bool onMouseDown(MouseDownEvent& event);
     bool onMouseUp(MouseUpEvent& event);
     bool onMouseMove(MouseMoveEvent& event);
+
+    void pushLayer(Layer* layer);
+    void pushOverlay(Layer* layer);
 private:
     static Application* s_Instance;
     bool m_Running = false;
     std::unique_ptr<Window> m_Window;
+    LayerStack m_LayerStack;
 };

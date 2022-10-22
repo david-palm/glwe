@@ -3,8 +3,25 @@
 
 #define BIND_EVENT_FUNCTION(x) std::bind(&Application::x, this, std::placeholders::_1)
 
+class ExampleLayer : public Layer
+{
+public:
+    ExampleLayer()
+        : Layer("Example") {}
+
+    void onUpdate() override
+    {
+        std::cout << "Updating Example Layer" << std::endl;
+    }
+
+    void onEvent(Event& event) override
+    {
+        std::cout << event.toString() << std::endl;
+    }
+};
 Application::Application()
 {
+    pushLayer(new ExampleLayer());
     // Initialize glfw and end program if problem occurred
     if (!glfwInit()) {
         std::cerr << "Failed to initialize GLFW" << std::endl;
@@ -97,9 +114,7 @@ Application::~Application()
 
 void Application::run()
 {
-#ifdef __EMSCRIPTEN__
-    emscripten_set_main_loop(mainLoop, 0, true);
-#else
+#ifndef __EMSCRIPTEN__
     /* Loop until the user closes the window */
     while (m_Running)
     {
@@ -123,6 +138,11 @@ void Application::runLoop()
     vertexArrayTriangle->bind();
     glDrawElements(GL_TRIANGLES, vertexArrayTriangle->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, nullptr);
 
+    for(Layer* layer : m_LayerStack)
+    {
+        layer->onUpdate();
+    }
+
 #ifndef __EMSCRIPTEN__
     m_Window->onUpdate();
 #endif
@@ -141,45 +161,57 @@ void Application::onEvent(Event& event)
     dispatcher.dispatch<MouseDownEvent>(BIND_EVENT_FUNCTION(onMouseDown));
     dispatcher.dispatch<MouseUpEvent>(BIND_EVENT_FUNCTION(onMouseUp));
     dispatcher.dispatch<MouseMoveEvent>(BIND_EVENT_FUNCTION(onMouseMove));
+
+    for(auto iterator = m_LayerStack.end(); iterator != m_LayerStack.begin(); )
+    {
+        (*--iterator)->onEvent(event);
+        if(event.m_Handled)
+        {
+            break;
+        }
+    }
 }
 
 #ifndef __EMSCRIPTEN__
 bool Application::onWindowClose(WindowCloseEvent& event)
 {
     m_Running = false;
-    std::cout << "Closed window" << std::endl;
     return true;
 }
 bool Application::onWindowResize(WindowResizeEvent& event)
 {
-    std::cout << "Resized window: " << event.getWidth() << ", " << event.getHeight() << std::endl;
     return true;
 }
 #endif
 
 bool Application::onKeyDown(KeyDownEvent& event)
 {
-    std::cout << event.toString() << std::endl;
     return true;
 }
 bool Application::onKeyUp(KeyUpEvent& event)
 {
-    std::cout << event.toString() << std::endl;
     return true;
 }
 
 bool Application::onMouseDown(MouseDownEvent& event)
 {
-    std::cout << event.toString() << std::endl;
     return true;
 }
 bool Application::onMouseUp(MouseUpEvent& event)
 {
-    std::cout << event.toString() << std::endl;
     return true;
 }
 bool Application::onMouseMove(MouseMoveEvent& event)
 {
-    std::cout << event.toString() << std::endl;
     return true;
+}
+
+void Application::pushLayer(Layer* layer)
+{
+    m_LayerStack.pushLayer(layer);
+}
+
+void Application::pushOverlay(Layer* layer)
+{
+    m_LayerStack.pushOverlay(layer);
 }

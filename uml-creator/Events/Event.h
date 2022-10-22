@@ -42,7 +42,7 @@ public:
     {
         return getCategoryFlags() & category;
     }
-protected:
+
     bool m_Handled = false;
 };
 
