@@ -199,11 +199,14 @@ void WindowsWindow::init(const WindowProperties& properties)
         windowData.eventCallback(event);
         return 0;
     });
-    ret = emscripten_set_mousemove_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, &m_WindowData, 1, [](int eventType, const EmscriptenMouseEvent *e, void *userData)
+    ret = emscripten_set_mousemove_callback("#canvas", &m_WindowData, 1, [](int eventType, const EmscriptenMouseEvent *e, void *userData)
     {
         WindowData& windowData = *(WindowData*)userData;
 
-        MouseMoveEvent event(e->targetX, e->targetY);
+        float x = ((float) e->targetX / windowData.width) * 2.0f - 1.0f;
+        float y = ((float) e->targetY / windowData.height) * 2.0f - 1.0f;
+
+        MouseMoveEvent event(x, y);
         windowData.eventCallback(event);
         return 0;
     });
@@ -278,8 +281,11 @@ void WindowsWindow::init(const WindowProperties& properties)
         }
     });
 
-    glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double x, double y) {
+    glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double mouseX, double mouseY) {
         WindowData& windowData = *(WindowData*)glfwGetWindowUserPointer(window);
+
+        float x = (float) (mouseX / windowData.width) * 2.0 - 1.0;
+        float y = (float) (mouseY / windowData.height) * 2.0 - 1.0;
 
         MouseMoveEvent event(x, y);
         windowData.eventCallback(event);
