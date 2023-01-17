@@ -4,4 +4,4 @@ add_subdirectory(Math)
 add_subdirectory(Renderer)
 add_subdirectory(Platform/OpenGL)
 
-target_link_libraries(uml-creator Math Renderer)
+target_link_libraries(glwe Math Renderer)
