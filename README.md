@@ -10,6 +10,6 @@ The current demo can be downloaded [here](https://github.com/david-palm/glwe/rel
 </p>
 
 ## Current features
-- Easy rendering of simple 2D shape through abstraction of shaders, buffers and vertex/index arrays
+- Easy rendering of simple 2D shape through abstraction of shaders, buffers, and vertex/index arrays
 - Event system handles key and mouse inputs
 - Code can be easily compiled to Desktop or WebAssembly
