@@ -8,7 +8,7 @@ struct WindowProperties
     unsigned int width;
     unsigned int height;
 
-    WindowProperties(const std::string& title = "UML Creator", unsigned int width = 1280, unsigned int height = 720)
+    WindowProperties(const std::string& title = "GLWE", unsigned int width = 1280, unsigned int height = 720)
         : title(title), width(width), height(height)
     {}
 };

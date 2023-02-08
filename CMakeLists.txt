@@ -33,13 +33,16 @@ else()
     add_subdirectory(vendor/glad)
     add_subdirectory(vendor/imgui)
 
+
     # Linking libraries to main glwe project
     target_link_libraries(glwe glfw)
     target_link_libraries(glwe glad)
     target_link_libraries(glwe imgui)
+    target_link_libraries(glwe -lmingw32 -lSDL2Main -lSDL2 -mwindows)
 
     # Adding include directories of libraries to main glwe project
     target_include_directories(glwe PUBLIC /vendor/glfw/include)
     target_include_directories(glwe PUBLIC /vendor/glad/include)
     target_include_directories(glwe PUBLIC /vendor/imgui)
+
 endif()
